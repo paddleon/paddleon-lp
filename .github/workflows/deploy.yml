@@ -57,9 +57,13 @@ jobs:
             code=$(curl -s -o /dev/null -w '%{http_code}' "https://paddleon.app$p")
             echo "$p $code"; [ "$code" = 200 ] || fail=1
           done
-          # iPhone の Safari は動画を部分配信（206）でしか再生しない
+          # iPhone の Safari は動画を部分配信（206）でしか再生しない。Worker の反映は HTML より遅れることがあるので最大2分待つ
           for f in demo-screen.mp4 demo-screen.webm; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Range: bytes=0-1' "https://paddleon.app/video/$f")
+            for i in $(seq 1 24); do
+              code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Range: bytes=0-1' "https://paddleon.app/video/$f?v=$GITHUB_SHA")
+              [ "$code" = 206 ] && break
+              sleep 5
+            done
             echo "/video/$f Range $code（206 が正しい）"; [ "$code" = 206 ] || fail=1
           done
           for p in /README.md /wrangler.jsonc /package.json /src/worker.js; do
