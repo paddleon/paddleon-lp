@@ -1,0 +1,1087 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add('js')</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PADDLE ON（パドルオン）｜「できた」が、増えていく。サーフィンの記録アプリ</title>
+<meta name="description" content="海から上がったら30秒で記録。タップで振り返って、次に意識することを1つだけ。「上手くなってる」が、ちゃんとわかるサーフィンアプリ。iPhone版を準備中です。事前登録受付中。">
+<meta name="theme-color" content="#070E1A">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PADDLE ON">
+<meta property="og:title" content="PADDLE ON｜「できた」が、増えていく。">
+<meta property="og:description" content="海から上がったら30秒で記録。「上手くなってる」が、ちゃんとわかるサーフィンアプリ。事前登録受付中。">
+<meta property="og:url" content="https://paddleon.app/">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PADDLE ON｜「できた」が、増えていく。事前登録受付中">
+<link rel="canonical" href="https://paddleon.app/">
+<meta property="og:image" content="https://paddleon.app/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LB6QHHK4KE"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-LB6QHHK4KE');</script>
+<link rel="preload" as="image" href="img/hero-bg.webp" media="(min-width:961px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/hero-bg-sp.webp" media="(max-width:960px)" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Montserrat:wght@700&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Zen Kaku Gothic New';font-weight:500;font-display:swap;src:url(fonts/zkgn-500.woff2) format('woff2')}
+@font-face{font-family:'Zen Kaku Gothic New';font-weight:700;font-display:swap;src:url(fonts/zkgn-700.woff2) format('woff2')}
+@font-face{font-family:'Zen Kaku Gothic New';font-weight:900;font-display:swap;src:url(fonts/zkgn-900.woff2) format('woff2')}
+:root{
+  --bg:#070E1A; --bg2:#0B1628; --card:#101A2B; --card2:#172338; --line:#22314B; --line2:#1C2A42;
+  --text:#EEF3F8; --text2:#C9D3E0; --muted:#8392A8; --dim:#5B6B82;
+  --cyan:#5ED3E6; --cyan2:#2E8FA3; --yellow:#FFD23F; --sand:#F2D39F; --ink:#0A0F1A;
+  --gut:20px; --max:1040px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter','Zen Kaku Gothic New','Hiragino Sans','Hiragino Kaku Gothic ProN',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--cyan)}
+h1,h2,h3{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;margin:0;line-height:1.35}
+p{margin:0}
+.wrap{max-width:calc(var(--max) + var(--gut)*2);margin:0 auto;padding:0 var(--gut)}
+.eyebrow{font-size:12px;font-weight:700;color:var(--cyan);letter-spacing:.12em}
+.h2{font-size:clamp(24px,4.2vw,40px)}
+.lead{font-size:clamp(15px,1.6vw,18px);color:var(--text2);line-height:1.8}
+section{scroll-margin-top:72px}
+.sp{display:none}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:20;background:rgba(7,14,26,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(34,49,75,.5)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.hdr nav{display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600}
+.hdr nav a{color:var(--muted);text-decoration:none}
+.hdr nav a:hover{color:var(--text)}
+.hdr .navlinks{display:flex;gap:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:12px;border:0;background:var(--yellow);color:var(--ink);font-family:inherit;font-weight:800;font-size:15px;line-height:1;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.05)}
+.btn.sm{height:38px;padding:0 14px;font-size:13px;border-radius:10px}
+.hdr .btn.sm{color:var(--ink)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:64px 0 72px}
+.hero .bg{position:absolute;inset:0;background:#efc6a0 url(img/hero-bg.webp) calc(50% - 150px) -10px/max(2457px,calc(100% + 420px)) auto no-repeat}
+.hero .copy{text-shadow:0 1px 3px rgba(7,14,26,.45),0 2px 18px rgba(7,14,26,.5)}
+.hero .copy .btn,.hero .copy .store,.hero .copy .pill{text-shadow:none}
+.hero .pill{background:rgba(7,14,26,.6);border-color:rgba(94,211,230,.55)}
+.hero .tagline{color:#fff}
+.hero .store{background:rgba(7,14,26,.6);border-color:rgba(255,255,255,.22)}
+.hero .store span.t{opacity:.75}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center}
+.hero .copy{display:flex;flex-direction:column;gap:22px}
+.pill{align-self:flex-start;font-size:12px;font-weight:700;color:var(--cyan);letter-spacing:.1em;border:1px solid rgba(94,211,230,.4);padding:4px 10px;border-radius:999px}
+.hero h1{font-size:clamp(36px,5.6vw,58px);line-height:1.25;text-indent:-.5em}
+.tagline{font-family:'Marck Script',cursive;font-weight:400;letter-spacing:.01em;color:var(--cyan);font-size:clamp(30px,3vw,38px);transform:rotate(-3deg);transform-origin:left center;margin-top:-4px}
+.hero .lead{max-width:34em}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.store{position:relative;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 16px;border-radius:12px;border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:800}
+.store span.t{opacity:.45;display:inline-flex;align-items:center;gap:8px}
+.store .soon{position:absolute;top:-9px;right:-8px;padding:1px 8px;border-radius:999px;background:var(--cyan);color:var(--ink);font-size:10px;font-weight:800;letter-spacing:.04em;line-height:1.6;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.phones{display:flex;gap:20px;align-items:flex-end}
+.iphone{--w:254px;position:relative;flex-shrink:0;width:var(--w);padding:3px;border-radius:calc(var(--w)*.19);background:linear-gradient(145deg,#5A5F69 0%,#2A2D33 22%,#1B1D21 50%,#2A2D33 78%,#50545D 100%);box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.6)}
+.iphone .bz{padding:calc(var(--w)*.03);border-radius:calc(var(--w)*.19 - 3px);background:#050608}
+.iphone img{width:100%;height:auto;aspect-ratio:780/1688;object-fit:cover;border-radius:calc(var(--w)*.16 - 3px)}
+.iphone .di{position:absolute;left:50%;top:calc(3px + var(--w)*.058);width:calc(var(--w)*.28);aspect-ratio:126/37;transform:translateX(-50%);border-radius:999px;background:#000}
+.iphone i{position:absolute;width:3px;border-radius:2px;background:#3A3E46}
+.iphone i:nth-of-type(1){left:-2px;top:17%;height:4.5%}
+.iphone i:nth-of-type(2){left:-2px;top:24%;height:8%}
+.iphone i:nth-of-type(3){left:-2px;top:33.5%;height:8%}
+.iphone i:nth-of-type(4){right:-2px;top:27%;height:12%}
+.iphone.sub{--w:201px;margin-bottom:60px}
+.step .iphone{--w:265px}
+
+/* why */
+.why{padding:128px 0}
+.why .wrap{display:flex;flex-direction:column;gap:24px}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card .t{font-size:16px;font-weight:800;line-height:1.5}
+.card .d{font-size:13px;color:var(--muted);line-height:1.7;margin-top:8px}
+.card .ans{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;font-weight:700;color:var(--cyan);line-height:1.6}
+.why .lead b{color:var(--text)}
+
+/* log */
+.log{padding:24px 0 136px}
+.log .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
+.log .txt{display:flex;flex-direction:column;gap:16px}
+.log .txt .sub{font-size:15px;color:var(--muted);line-height:1.8}
+.pace{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px}
+.pace .top{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800}
+.free{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--cyan);border:1px solid var(--cyan2);border-radius:999px;padding:3px 8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat .l{font-size:11px;color:var(--muted);font-weight:700}
+.stat .n{font-size:32px;font-weight:900;line-height:1.1}
+.stat .n small{font-size:12px;color:var(--muted);margin-left:2px}
+.stat.hl .n{color:var(--yellow)}
+.bars{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;align-items:end}
+.bar{display:flex;flex-direction:column;justify-content:flex-end;gap:6px;height:90px}
+.bar i{display:block;border-radius:4px;background:var(--cyan2)}
+.bar.now i{background:var(--cyan)}
+.bar.zero i{height:4px!important;border-radius:2px;background:var(--yellow)}
+.bar.future i{height:4px!important;border-radius:2px;background:var(--line2)}
+.bar b{font-size:10px;font-weight:400;color:var(--dim);text-align:center}
+.bar.now b{color:var(--text)}
+.pace .note{font-size:12px;color:var(--muted)}
+
+/* how */
+.how{padding:136px 0;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 50%,var(--bg) 100%)}
+.how .head{text-align:center;display:flex;flex-direction:column;gap:12px;margin-bottom:72px}
+.step{display:flex;align-items:center;justify-content:center;gap:100px}
+.step+.step{margin-top:80px}
+.step.rev{flex-direction:row-reverse}
+.step .txt{max-width:420px;display:flex;flex-direction:column;gap:10px}
+.step .num{font-size:44px;font-weight:900;color:var(--cyan);letter-spacing:.04em;line-height:1}
+.step h3{font-size:30px}
+
+/* features */
+.feat{padding:120px 0}
+.feat .wrap{display:flex;flex-direction:column;gap:24px}
+.cards4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.dot{width:10px;height:10px;border-radius:3px;margin-bottom:8px}
+
+/* about */
+.about{padding:24px 0}
+.about .box{position:relative;border-radius:24px;overflow:hidden;padding:64px}
+.about .box::before{content:"";position:absolute;inset:0;background:url(img/about-bg.webp) center 45%/cover}
+.about .box::before{filter:saturate(1.15) brightness(1.08)}
+.about .box::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,14,26,.8) 0%,rgba(7,14,26,.55) 45%,rgba(7,14,26,.08) 80%,rgba(7,14,26,0) 100%)}
+.about .in{text-shadow:0 1px 12px rgba(7,14,26,.6)}
+.about .in{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;max-width:640px}
+.about h2{font-family:'Montserrat','Inter',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,36px);letter-spacing:.06em}
+.about h2 span{font-family:'Zen Kaku Gothic New',sans-serif;font-size:.55em;color:var(--muted);letter-spacing:.1em;margin-left:8px}
+.about p{font-size:clamp(14px,1.4vw,17px);line-height:1.9;color:#D6DEE8}
+
+/* pricing */
+.price{padding:136px 0 112px}
+.price .head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.price .grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start}
+.tbl{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.tr{display:grid;grid-template-columns:1fr 80px 80px;padding:12px 16px;border-top:1px solid var(--line2);font-size:13px;align-items:center}
+.tr:first-child{border-top:0;font-size:12px;font-weight:700;color:var(--muted)}
+.tr span:not(:first-child){text-align:center;color:var(--muted)}
+.tr span:first-child{font-weight:600}
+.tr .up{color:var(--cyan)!important;font-weight:800}
+.plushd{display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2;color:var(--yellow)!important}
+.plushd em{font-style:normal;font-size:9px;font-weight:800;color:var(--ink);background:var(--cyan);border-radius:999px;padding:1px 6px;letter-spacing:.04em}
+.plans{display:flex;flex-direction:column;gap:14px}
+.plans .row{display:flex;gap:12px}
+.plan{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:18px}
+.plan .l{font-size:13px;font-weight:700;color:var(--muted)}
+.plan .p{font-size:30px;font-weight:800}
+.plan .p small{font-size:13px;color:var(--muted)}
+.plan .s{font-size:12px;color:var(--cyan);font-weight:700}
+.notice{background:rgba(94,211,230,.08);border:1px solid var(--cyan2);border-radius:14px;padding:14px 16px;font-size:13px;line-height:1.7;color:var(--text2)}
+.notice b{color:var(--text)}
+.fine{font-size:12px;color:var(--muted)}
+
+/* signup */
+.signup{padding:64px 0 136px}
+.signup .box{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;background:linear-gradient(135deg,#12304A 0%,var(--card) 70%);border:1px solid #2A4A63;border-radius:24px;padding:48px}
+.signup .txt{display:flex;flex-direction:column;gap:16px}
+.signup .cond{font-size:12px;line-height:1.8;color:var(--text2);background:rgba(94,211,230,.06);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.signup ul{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--text2)}
+.signup li{display:flex;gap:10px;align-items:flex-start}
+.signup li::before{content:"";flex-shrink:0;width:18px;height:18px;margin-top:2px;border-radius:50%;background:var(--cyan) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A0F1A' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/12px no-repeat}
+form{display:flex;flex-direction:column;gap:14px}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700}
+label.f .opt{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
+input[type=email],input[type=text],select{height:50px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);padding:0 14px;font-family:inherit;font-weight:500;font-size:16px;width:100%}
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238392A8' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:18px;padding-right:40px}
+input:focus,select:focus{outline:2px solid var(--cyan);outline-offset:1px;border-color:transparent}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text2);font-weight:500}
+.consent input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--cyan);flex-shrink:0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.submit{height:54px;font-size:16px;width:100%}
+.submit[disabled]{opacity:.6;cursor:default}
+.msg{font-size:13px;line-height:1.7;min-height:1em}
+.msg.err{color:#FF9B8A}
+.done{display:none;flex-direction:column;gap:12px;align-items:flex-start;background:rgba(94,211,230,.08);border:1px solid var(--cyan2);border-radius:18px;padding:24px}
+.done h3{font-size:22px}
+.done p{font-size:14px;color:var(--text2);line-height:1.8}
+.is-done form{display:none}
+.is-done .done{display:flex}
+.done .again{margin-top:4px;padding:0;border:0;background:none;color:var(--cyan);font:inherit;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+
+/* faq */
+.faq{padding:64px 0 120px}
+.faq .wrap{display:grid;grid-template-columns:320px minmax(0,1fr);gap:80px}
+.qa{border-top:1px solid var(--line);padding:18px 0;display:flex;flex-direction:column;gap:8px}
+.qa .q{font-size:15px;font-weight:800}
+.qa .a{font-size:13px;color:var(--muted);line-height:1.8}
+
+/* closing */
+.closing{padding:64px 0 136px;text-align:center}
+.closing .wrap{display:flex;flex-direction:column;align-items:center;gap:22px}
+.closing .icon{width:80px;height:80px;border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px #2A3B58,0 0 40px rgba(94,211,230,.25)}
+.closing h2{font-size:clamp(28px,4.4vw,44px)}
+
+footer{border-top:1px solid var(--line2);padding:28px 0 36px}
+footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer nav{display:flex;gap:20px;font-size:12px}
+footer nav a{color:var(--muted);text-decoration:none}
+footer small{font-size:12px;color:var(--dim)}
+
+/* responsive */
+@media (max-width:960px){
+  .hero .bg{background-image:url(img/hero-bg-sp.webp);background-size:auto 1536px;background-position:calc(50vw - 816px) bottom}
+  .hero .wrap{grid-template-columns:1fr}
+  .hero .phones{justify-content:center}
+  .log .wrap{grid-template-columns:1fr;gap:28px}
+  .cards4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .price .grid{grid-template-columns:1fr;gap:20px}
+  .signup .box{grid-template-columns:1fr;padding:32px 24px;gap:28px}
+  .faq .wrap{grid-template-columns:1fr;gap:16px}
+  .step,.step.rev{flex-direction:column;gap:28px;align-items:flex-start}
+  .step .iphone{align-self:center}
+}
+@media (max-width:640px){
+  :root{--gut:20px}
+  .sp{display:inline}
+  .hdr .navlinks{display:none}
+  .hero{padding:40px 0 48px}
+
+  .about .box::after{background:linear-gradient(180deg,rgba(7,14,26,.62) 0%,rgba(7,14,26,.5) 100%)}
+  .iphone,.step .iphone{--w:236px}
+  .iphone.sub{display:none}
+  .why{padding:88px 0}
+  .log{padding:8px 0 88px}
+  .feat{padding:80px 0}
+  .signup{padding:40px 0 88px}
+  .faq{padding:40px 0 80px}
+  .closing{padding:40px 0 88px}
+  .cards3{grid-template-columns:1fr}
+  .cards4{grid-template-columns:1fr}
+  .pace{padding:20px}
+  .stat .n{font-size:26px}
+  .bars{gap:5px}
+  .bar{height:72px}
+  .how{padding:88px 0}
+  .how .head{margin-bottom:40px;text-align:left;align-items:flex-start}
+  .step+.step{margin-top:56px}
+  .step h3{font-size:22px}
+  .step .num{font-size:28px}
+  .about .box{padding:32px 24px}
+  .price{padding:88px 0 64px}
+  .tr{grid-template-columns:1fr 64px 64px;padding:12px 14px}
+  .plans .row{flex-direction:column}
+  .two{grid-template-columns:1fr}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+}
+
+/* ---- motion ---- */
+.sw{position:relative;border-radius:calc(var(--w)*.16 - 3px);overflow:hidden;background:#050608}
+.sw .sl{position:absolute;left:0;top:0;opacity:0;animation:slide 15s infinite;animation-delay:calc(var(--i)*3s - .6s)}
+.sw .sl:first-child{position:relative}
+@keyframes slide{0%{opacity:0}4%{opacity:1}20%{opacity:1}24%{opacity:0}100%{opacity:0}}
+.heronote{font-size:13px;color:var(--text2);line-height:1.7;max-width:34em}
+.formnote{font-size:12px;color:var(--muted);line-height:1.7;margin:-4px 0 0}
+.js .rv{opacity:0;transform:translateY(64px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rv.is-in{opacity:1;transform:none}
+.js .stagger>.card{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.js .stagger.is-in>.card{opacity:1;transform:none}
+.stagger.is-in>.card:nth-child(1){transition-delay:.25s}.stagger.is-in>.card:nth-child(2){transition-delay:.35s}.stagger.is-in>.card:nth-child(3){transition-delay:.45s}.stagger.is-in>.card:nth-child(4){transition-delay:.55s}
+.js .bar i{transform-origin:bottom;transform:scaleY(0);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.pace.is-in .bar i{transform:none}
+.js .bar i{transition-duration:1.1s}
+.pace.is-in .bar:nth-child(1) i{transition-delay:0.70s}.pace.is-in .bar:nth-child(2) i{transition-delay:0.78s}.pace.is-in .bar:nth-child(3) i{transition-delay:0.86s}.pace.is-in .bar:nth-child(4) i{transition-delay:0.94s}.pace.is-in .bar:nth-child(5) i{transition-delay:1.02s}.pace.is-in .bar:nth-child(6) i{transition-delay:1.10s}.pace.is-in .bar:nth-child(7) i{transition-delay:1.18s}.pace.is-in .bar:nth-child(8) i{transition-delay:1.26s}.pace.is-in .bar:nth-child(9) i{transition-delay:1.34s}.pace.is-in .bar:nth-child(10) i{transition-delay:1.42s}.pace.is-in .bar:nth-child(11) i{transition-delay:1.50s}.pace.is-in .bar:nth-child(12) i{transition-delay:1.58s}
+.pace.is-in .bar:nth-child(2) i{transition-delay:.05s}.pace.is-in .bar:nth-child(3) i{transition-delay:.1s}.pace.is-in .bar:nth-child(4) i{transition-delay:.15s}.pace.is-in .bar:nth-child(5) i{transition-delay:.2s}.pace.is-in .bar:nth-child(6) i{transition-delay:.25s}.pace.is-in .bar:nth-child(7) i{transition-delay:.3s}.pace.is-in .bar:nth-child(8) i{transition-delay:.35s}.pace.is-in .bar:nth-child(9) i{transition-delay:.4s}
+.demo{padding:40px 0 136px}
+.demo .wrap{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:64px;align-items:center}
+.vid{display:flex;flex-direction:column;gap:12px;align-items:center}
+.vphone{--w:270px}
+.iphone video{display:block;width:100%;height:auto;aspect-ratio:780/1688;object-fit:cover;border-radius:calc(var(--w)*.16 - 3px);background:#050608}
+.vbar{display:flex;align-items:center;gap:12px;width:var(--w,270px);max-width:100%}
+.vbtn{flex-shrink:0;font-family:inherit;font-weight:800;font-size:12px;color:var(--text);background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.vbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.vcap{font-size:13px;font-weight:800;color:var(--cyan);letter-spacing:.04em}
+.vnote{font-size:12px;color:var(--muted);text-align:center}
+.demo .txt{display:flex;flex-direction:column;gap:16px}
+.calwrap{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;max-width:420px}
+.calhd{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;margin-bottom:14px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal i{aspect-ratio:1;border-radius:6px;background:#172338;transition:background .5s ease,transform .5s ease;transform:scale(.8)}
+.cal.go i{transform:none}
+@media (max-width:960px){.demo .wrap{grid-template-columns:1fr;gap:32px;justify-items:center}.demo .txt{width:100%}}
+@media (max-width:640px){.demo{padding:24px 0 88px}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .sw .sl{animation:none;opacity:0}.sw .sl:last-child{opacity:1}
+  .js .rv,.js .stagger>.card{opacity:1;transform:none;transition:none}
+  .bar i{transform:none;transition:none}
+  .cal i{transition:none;transform:none}
+}
+
+/* ---- type scale (larger) ---- */
+body{font-size:17px}
+.h2{font-size:clamp(30px,4.6vw,54px);line-height:1.3}
+.lead{font-size:clamp(17px,1.8vw,21px);line-height:1.85}
+.hero h1{font-size:clamp(44px,6.6vw,84px)}
+.heronote{font-size:15px}
+.btn{height:56px;padding:0 28px;font-size:17px}
+.btn.sm{height:40px;padding:0 16px;font-size:14px}
+.hdr .navlinks a{font-size:15px}
+.card{padding:28px}
+.card .t{font-size:21px}
+.card .d{font-size:16px;line-height:1.8;margin-top:10px}
+.card .ans{font-size:16px;margin-top:18px;padding-top:16px}
+.why .wrap,.feat .wrap{gap:36px}
+.pace .top{font-size:16px}
+.stat .l{font-size:13px}
+.stat .n{font-size:44px}
+.stat .n small{font-size:15px}
+.bar{height:120px}
+.bar b{font-size:12px}
+.pace .note,.log .txt .sub{font-size:16px}
+.vcap{font-size:15px}.vbtn{font-size:14px;padding:9px 16px}.vnote{font-size:13px}
+.calhd{font-size:16px}
+.about h2{font-size:clamp(32px,4.2vw,48px)}
+.about p{font-size:clamp(16px,1.6vw,20px)}
+.tr{font-size:16px;padding:16px 20px}
+.tr:first-child{font-size:14px}
+.signup ul{font-size:17px;gap:10px}
+.signup .fine{font-size:14px}
+.signup .cond{font-size:14px}
+label.f{font-size:15px}
+.formnote{font-size:14px}
+.qa{padding:24px 0;gap:10px}
+.qa .q{font-size:19px}
+.qa .a{font-size:16px}
+.closing h2{font-size:clamp(34px,5vw,60px)}
+
+/* ---- sunset hero: dark text on the sky ---- */
+.hero{min-height:max(860px,calc((100vw + 420px) * .335))}
+.hero .copy{color:#0A0F1A;text-shadow:none!important}
+.hero h1{color:#0A0F1A;font-size:clamp(40px,5.2vw,72px)}
+.nw{white-space:nowrap}
+.hero .lead{color:#1C2533}
+.hero .tagline{color:#0A0F1A}
+.hero .pill{background:rgba(255,255,255,.5);color:#0A3440;border-color:rgba(10,15,26,.25)}
+.hero .store{background:rgba(10,15,26,.72);border-color:transparent}
+@media (max-width:960px){
+  .hero{min-height:0}
+  .hero .phones{margin-top:300px}
+}
+@media (max-width:640px){
+  .hero h1{font-size:40px}
+}
+
+/* ---- photo backgrounds for sections (trial) ---- */
+.why .lead{color:#E6EDF5}
+.why .card{background:rgba(10,18,34,.88);border-color:rgba(255,255,255,.08);backdrop-filter:blur(6px)}
+.closing h2{color:#0A1A33}
+@media (max-width:640px){.closing{padding:64px 0 340px;background-position:center top}}
+.about .in{max-width:none}
+.about h2 span{white-space:nowrap}
+@media (min-width:961px){.about p{word-break:auto-phrase}}
+
+/* ---- r12 ---- */
+.why{background:none}
+.why .card{background:var(--card);border-color:var(--line);backdrop-filter:none}
+.closing{background:#c8d3dc url(img/closing-bg.webp) center 40%/cover no-repeat;padding:120px 0 340px;color:#0A0F1A}
+.how{background:#d9c3a6 url(img/how-bg.webp) center/cover no-repeat}
+.how .h2{color:#0A0F1A}
+.how .sbtn{background:rgba(10,15,26,.82);border-color:transparent;color:#fff}
+.how .sbtn:disabled{opacity:.45}
+.how .sdots button{background:rgba(10,15,26,.35)}
+.how .sdots button[aria-selected="true"]{background:#0A0F1A}
+.about .box{padding:96px 64px}
+.about .in{gap:24px}
+.faq .wrap{grid-template-columns:auto minmax(0,1fr)}
+.faq h2{white-space:nowrap}
+.signup .box{align-items:end}
+.signup .box>.txt{align-self:start}
+.signup .formbox{align-self:end;justify-self:end;width:100%}
+.signup form .cond{margin:4px 0 0}
+.price .head{margin-bottom:0}
+/* header collapses to the CTA after scrolling past it */
+.hdr{transition:background .3s,border-color .3s,backdrop-filter .3s}
+.hdr .wrap>a,.hdr .navlinks{transition:opacity .3s,visibility .3s}
+.hdr.is-min{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}
+.hdr.is-min .wrap>a,.hdr.is-min .navlinks{opacity:0;visibility:hidden}
+.hdr.is-min .btn{pointer-events:auto;box-shadow:0 6px 18px rgba(0,0,0,.28)}
+@media (max-width:960px){.signup .formbox{justify-self:stretch}}
+@media (max-width:640px){.closing{padding:72px 0 300px;background-position:center 30%}.about .box{padding:56px 24px}}
+.how .head{display:flex;flex-direction:row;align-items:flex-end;justify-content:space-between;text-align:left;gap:24px;margin-bottom:40px}
+.snav{display:flex;gap:10px;flex-shrink:0}
+.sbtn{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);display:grid;place-items:center;cursor:pointer;transition:background .2s,opacity .2s}
+.sbtn:hover{background:var(--card2)}
+.sbtn:disabled{opacity:.35;cursor:default}
+.sbtn:focus-visible,.track:focus-visible,.sdots button:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+html{overflow-x:clip}
+.slider{margin-right:calc(50% - 50vw)}
+.track{list-style:none;margin:0;padding:0 var(--gut) 8px 0;scroll-padding-left:0;display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 min(860px,84%);scroll-snap-align:start;display:grid;grid-template-columns:auto minmax(0,1fr);gap:56px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:44px 56px}
+.slide .iphone{--w:240px}
+.slide .txt{display:flex;flex-direction:column;gap:14px}
+.slide .num{font-size:52px;font-weight:900;color:var(--cyan);letter-spacing:.04em;line-height:1}
+.slide h3{font-size:clamp(26px,3vw,36px)}
+.sdots{display:flex;gap:10px;justify-content:center;margin-top:28px}
+.sdots button{width:10px;height:10px;padding:0;border:0;border-radius:5px;background:var(--line);cursor:pointer;transition:width .3s,background .3s}
+.sdots button[aria-selected="true"]{width:28px;background:var(--cyan)}
+@media (max-width:960px){
+  .slide{grid-template-columns:1fr;justify-items:center;gap:28px;padding:32px 28px;flex-basis:min(560px,86%)}
+  .slide .txt{width:100%}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .h2{font-size:30px}
+  .lead{font-size:16px}
+  .hero h1{font-size:44px}
+  .btn{height:52px;font-size:16px}
+  .card .t{font-size:19px}
+  .card .d,.card .ans{font-size:15px}
+  .stat .n{font-size:32px}
+  .bar{height:84px}
+  .cards4{grid-template-columns:1fr}
+  .how .head{margin-bottom:28px}
+  .snav{display:none}
+  .slide{flex-basis:86%;padding:28px 22px;border-radius:22px}
+  .slide .iphone{--w:210px}
+  .slide .num{font-size:36px}
+  .slide h3{font-size:24px}
+  .qa .q{font-size:17px}
+  .qa .a{font-size:15px}
+  .tr{font-size:14px;padding:12px 14px}
+}
+
+/* ---- r13 ---- */
+.hdr{transition:transform .35s ease,background .3s}
+.hdr.is-min{transform:translateY(-100%);pointer-events:none}
+.hdr.is-min .btn{box-shadow:none}
+.hero .cta-row .btn{box-shadow:0 10px 28px rgba(10,15,26,.35),0 2px 6px rgba(10,15,26,.25)}
+.closing{background-position:center top}
+.about .box::before{background-position:center 55%}
+.price .head{margin-bottom:28px}
+/* slider: centered card, neighbours peek ~1/3, faded edges */
+.slider{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 16%,#000 84%,transparent 100%)}
+.track{--sw:min(60vw,920px);padding:0 calc((100vw - var(--sw)) / 2) 8px;gap:24px}
+.slide{flex:0 0 var(--sw);max-width:none;scroll-snap-align:center;background:rgba(14,24,40,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:rgba(255,255,255,.1)}
+@media (max-width:960px){.track{--sw:76vw}.slider{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}}
+
+/* ---- r14: CVR tweaks ---- */
+.micro{font-size:13px;font-weight:700;letter-spacing:.02em;margin-top:-6px}
+.hero .micro{color:#1C2533}
+.closing .micro{color:#1C2533;margin-top:-8px}
+.form-micro{color:var(--muted);text-align:center;margin:-4px 0 0}
+.scrollcue{position:absolute;left:max(var(--gut),calc((100% - var(--max)) / 2));bottom:28px;z-index:2;width:28px;height:64px;display:flex;justify-content:center}
+.scrollcue span{position:relative;width:2px;height:100%;background:rgba(255,255,255,.35);overflow:hidden;border-radius:2px}
+.scrollcue span::after{content:"";position:absolute;left:0;top:-40%;width:100%;height:40%;background:#fff;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{top:-40%}100%{top:100%}}
+.totop{position:fixed;right:20px;bottom:20px;z-index:30;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:rgba(10,15,26,.85);color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.35);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .3s,transform .3s,visibility .3s}
+.totop.show{opacity:1;visibility:visible;transform:none}
+.totop:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+/* header: hide while scrolling down, come back when scrolling up */
+.hdr.is-min{transform:translateY(-100%);visibility:hidden;transition:transform .35s ease,visibility 0s linear .35s}
+.hdr.is-min .btn{visibility:hidden}
+@media (max-width:960px){.scrollcue{display:none}}
+@media (prefers-reduced-motion:reduce){.scrollcue span::after{animation:none;top:30%}}
+
+/* ---- r15 ---- */
+.hero .store{background:rgba(255,255,255,.35);border:1.5px solid #0A0F1A;color:#0A0F1A}
+.hero .store span.t{opacity:1}
+.slider{-webkit-mask-image:none!important;mask-image:none!important}
+@media (max-width:960px){
+  .faq .wrap{grid-template-columns:1fr;gap:16px}
+  .faq h2{white-space:normal}
+}
+@media (max-width:640px){
+  :root{--gut:24px}
+  .h2,.why .h2,.log .h2,.how .h2,.faq h2,.price .head .h2,.demo .h2{text-align:center}
+  .how .head{justify-content:center}
+  .signup .h2{text-align:center}
+  .hero .iphone{--w:300px}
+  .hero .phones{margin-top:390px}
+  .hero .bg{background-size:auto 2048px;background-position:calc(50vw - 1088px) bottom}
+  .plans .row{flex-direction:row}
+  .plans .plan{flex:1;min-width:0}
+}
+[hidden]{display:none!important}
+.h2,.closing h2{word-break:auto-phrase}
+.closing .micro{color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+
+/* ---- r16 ---- */
+.hero .store{background:#0A0F1A;border:1px solid #0A0F1A;color:#fff}
+.hero .store span.t{opacity:1;color:#fff}
+.closing{padding:200px 0;background-position:center top;background-size:max(100%,1500px) auto}
+@media (max-width:640px){.closing{padding:150px 0;background-position:center top;background-size:auto 1080px}.closing .micro{color:#0A1A33;text-shadow:none}}
+
+/* ---- r17 ---- */
+.demo .wrap{grid-template-columns:minmax(0,1fr) minmax(0,420px)}
+.demo .calwrap{margin:0;width:100%}
+.phones-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+.heronote2{font-size:11px;color:#1C2533;text-align:center}
+.freelist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.freelist li{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:6px}
+.freelist b{font-size:19px;font-weight:800}
+.freelist b::before{content:"";display:inline-block;width:18px;height:18px;margin-right:8px;vertical-align:-2px;border-radius:50%;background:var(--cyan) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A0F1A' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+.freelist span{font-size:15px;color:var(--text2);line-height:1.7}
+.plusnote{margin-top:20px;font-size:15px;color:var(--muted)}
+@media (max-width:960px){.demo .wrap{grid-template-columns:1fr;justify-items:center}.demo .calwrap{max-width:420px;margin:0 auto}}
+@media (max-width:640px){.freelist{grid-template-columns:1fr}.freelist b{font-size:17px}}
+.calhd{gap:10px}.calhd .free{white-space:nowrap;flex-shrink:0}
+@media (max-width:640px){.calhd{font-size:14px}}
+.closing .micro{margin-top:0}
+@media (max-width:640px){.closing{background-size:cover;background-position:84% bottom;padding:80px 0 460px}}
+
+/* ---- r19: very wide screens ---- */
+@media (min-width:1400px){
+  .hero{padding-top:calc(64px + (100vw - 1280px) * .07)}
+}
+.closing{background-position:center min(0px, calc(520px - .337 * max(100vw, 1500px)))}
+@media (max-width:640px){.closing{background-position:84% bottom}}
+
+.wants{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.wants legend{font-size:15px;font-weight:700;margin-bottom:8px;padding:0}
+.wants legend .opt{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
+.wants label{position:relative;cursor:pointer}
+.wants input{position:absolute;opacity:0;width:1px;height:1px}
+.wants label>span{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-size:14px;font-weight:700;color:var(--text2);transition:background .15s,border-color .15s,color .15s}
+.wants input:checked+span{background:rgba(94,211,230,.18);border-color:var(--cyan);color:var(--text);box-shadow:inset 0 0 0 1px var(--cyan)}
+.wants input:focus-visible+span{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* faq accordion */
+details.qa{padding:0;gap:0}
+details.qa summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 4px;min-height:44px}
+details.qa summary::-webkit-details-marker{display:none}
+details.qa summary::after{content:"";flex-shrink:0;width:10px;height:10px;border-right:2px solid var(--cyan);border-bottom:2px solid var(--cyan);transform:rotate(45deg) translate(-2px,-2px);transition:transform .25s}
+details.qa[open] summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+details.qa summary:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:6px}
+details.qa .a{padding:0 4px 22px}
+@media (max-width:640px){
+  .hero .copy{align-items:center;text-align:center}
+  .hero h1{text-indent:0}
+  .hero .tagline{transform:rotate(-3deg);transform-origin:center}
+  .hero .cta-row{justify-content:center}
+  .hero .lead{margin:0 auto;word-break:auto-phrase}
+}
+
+/* ---- r24: review fixes ---- */
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.free{font-size:12px}
+.store .soon{font-size:12px}
+.heronote2{font-size:12px}
+.btn.sm{height:44px}
+footer nav a{display:inline-flex;align-items:center;min-height:44px;font-size:13px}
+.sdots{gap:0}
+.sdots button,.how .sdots button,.how .sdots button[aria-selected="true"],.sdots button[aria-selected="true"]{position:relative;width:32px;height:44px;padding:0;border:0;background:none;cursor:pointer}
+.sdots button::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;transform:translate(-50%,-50%);border-radius:5px;background:rgba(10,15,26,.35);transition:width .3s,background .3s}
+.sdots button[aria-selected="true"]::before{width:26px;background:#0A0F1A}
+.hdr .wrap>a{display:inline-flex;align-items:center;min-height:44px}
+.midcta{display:flex;justify-content:center;margin-top:28px}
+.midcta .btn{box-shadow:0 10px 28px rgba(10,15,26,.3)}
+.log .wrap{align-items:start}
+.log .calwrap{grid-column:2;max-width:none;margin:0}
+.log .pace{grid-column:2}
+.log .txt{grid-row:1 / span 2;align-self:center}
+.maker{padding:24px 0 72px}
+.mbox{max-width:720px;margin:0 auto;border-left:3px solid var(--cyan);padding:4px 0 4px 24px;display:flex;flex-direction:column;gap:12px}
+.mhead{font-size:14px;font-weight:800;color:var(--cyan);letter-spacing:.08em}
+.mlead{font-size:clamp(20px,2.4vw,26px);font-weight:900;font-family:'Zen Kaku Gothic New',sans-serif}
+.mbox p{font-size:16px;line-height:1.9;color:var(--text2)}
+.xlink{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);color:var(--text);text-decoration:none;font-weight:700;font-size:15px}
+.xlink:hover{background:var(--card)}
+.goal{word-break:auto-phrase;font-size:18px;font-weight:800;color:var(--yellow);margin-top:-4px}
+.agree{font-size:13px;color:var(--muted);text-align:center;margin:-2px 0 0}
+.agree a{color:var(--cyan)}
+@media (max-width:960px){.log .calwrap,.log .pace{grid-column:auto}.log .txt{grid-row:auto}.log .calwrap{max-width:none}}
+@media (max-width:640px){.maker{padding:8px 0 56px}.mbox{padding-left:18px}.goal{text-align:center;font-size:16px}.mbox p{word-break:auto-phrase}}
+.xrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.xlink{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;background:#0A0F1A;border:1px solid var(--line)}
+.xlink:hover{background:var(--card2)}
+footer nav a.fx{width:44px;justify-content:center;color:var(--muted)}
+footer nav a.fx:hover{color:var(--text)}
+.pluscard{margin-top:16px;border:1px dashed var(--cyan2);border-radius:16px;padding:22px;background:rgba(94,211,230,.04);display:flex;flex-direction:column;gap:12px}
+.phead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pname{font-family:'Montserrat','Inter',sans-serif;font-weight:700;letter-spacing:.06em;font-size:18px}
+.pname b{color:var(--cyan)}
+.pbadge{font-size:12px;font-weight:800;color:var(--ink);background:var(--cyan);border-radius:999px;padding:3px 10px}
+.pdesc{font-size:15px;color:var(--text2);line-height:1.7}
+.plist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.plist li{display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:12px;background:var(--card)}
+.plist b{font-size:17px;font-weight:800}
+.plist span{font-size:14px;color:var(--muted);line-height:1.7}
+.pfine{font-size:12px;color:var(--muted)}
+@media (max-width:640px){.plist{grid-template-columns:1fr}.pluscard{padding:18px}}
+/* ---- r25: final check (readability) ---- */
+.store{font-size:14px}
+.micro,.hero .micro,.closing .micro{font-size:14px}
+.stat .l{font-size:14px}
+.pfine,.agree,.formnote,.vnote,.heronote2{font-size:13px}
+footer nav a,footer small{font-size:13px}
+.opt,label.f .opt,.wants legend .opt{font-size:13px}
+.bar b{font-size:12px}
+@media (max-width:380px){
+  .hero h1{font-size:34px}
+  .hero .lead{font-size:15px}
+  .cta-row{flex-direction:column;align-items:center}
+  .hero .iphone{--w:250px}
+  .hero .phones{margin-top:300px}
+  :root{--gut:20px}
+}
+/* defer below-the-fold background photos */
+.js .how:not(.bg-on),.js .closing:not(.bg-on){background-image:none!important}
+.js .about .box:not(.bg-on)::before{background-image:none!important}
+/* scroll cue: centered, thicker */
+.scrollcue{left:50%;transform:translateX(-50%);bottom:24px;width:auto;height:auto;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none}
+.scrollcue::before{content:"SCROLL";font-family:'Montserrat','Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.24em;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.45)}
+.scrollcue span{width:3px;height:64px;border-radius:3px;background:rgba(255,255,255,.4);box-shadow:0 0 8px rgba(0,0,0,.25)}
+@media (max-width:960px){.scrollcue{display:none}}
+.goalsub{word-break:auto-phrase;font-size:14px;color:var(--muted);margin-top:-6px}
+@media (max-width:640px){.goalsub{text-align:center}}
+.card .t,.card .d{word-break:auto-phrase}
+.card .ans span{word-break:keep-all;overflow-wrap:anywhere}
+.card .ans{display:flex;align-items:flex-start;gap:8px}
+.card .ans::before{content:"";flex-shrink:0;width:16px;height:16px;margin-top:.3em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235ED3E6' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center/contain no-repeat}
+.store span.t svg{display:block;transform:translateY(-2px)}
+.phones-wrap{align-items:stretch}
+.heronote2{align-self:flex-end;text-align:right}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap">
+    <a href="#top" aria-label="PADDLE ON トップへ"><svg width="172.7" height="20" viewBox="0 -2 552.7 64" role="img" aria-label="PADDLE ON" style="display: block; flex-shrink: 0"><g transform="translate(-2.96 -9.26) scale(0.74)"><path d="M8 42 q 8 -7 16 0 q 8 7 16 0 q 8 -7 16 0 L 80 18" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 16 L82 16 L82 32" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.0 62.0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.0 82.0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(100.4 12)"><path d="M4.74 40V0H22.06Q27.43 0 31.31 1.74Q35.2 3.49 37.31 6.74Q39.43 10 39.43 14.51Q39.43 18.97 37.31 22.23Q35.2 25.49 31.31 27.23Q27.43 28.97 22.06 28.97H9.89L14 24.8V40ZM14 25.83 9.89 21.43H21.54Q25.83 21.43 27.94 19.6Q30.06 17.77 30.06 14.51Q30.06 11.2 27.94 9.37Q25.83 7.54 21.54 7.54H9.89L14 3.14ZM52.17 40 70 0H79.14L97.03 40H87.31L72.69 4.69H76.34L61.66 40ZM61.09 31.43 63.54 24.4H84.11L86.63 31.43ZM112.06 40V0H130.23Q136.74 0 141.71 2.49Q146.69 4.97 149.49 9.43Q152.29 13.89 152.29 20Q152.29 26.06 149.49 30.54Q146.69 35.03 141.71 37.51Q136.74 40 130.23 40ZM121.31 32.4H129.77Q133.77 32.4 136.71 30.89Q139.66 29.37 141.29 26.57Q142.91 23.77 142.91 20Q142.91 16.17 141.29 13.4Q139.66 10.63 136.71 9.11Q133.77 7.6 129.77 7.6H121.31ZM170.11 40V0H188.29Q194.8 0 199.77 2.49Q204.74 4.97 207.54 9.43Q210.34 13.89 210.34 20Q210.34 26.06 207.54 30.54Q204.74 35.03 199.77 37.51Q194.8 40 188.29 40ZM179.37 32.4H187.83Q191.83 32.4 194.77 30.89Q197.71 29.37 199.34 26.57Q200.97 23.77 200.97 20Q200.97 16.17 199.34 13.4Q197.71 10.63 194.77 9.11Q191.83 7.6 187.83 7.6H179.37ZM228.17 40V0H237.43V32.46H257.49V40ZM273.54 40V0H303.77V7.43H282.74V32.57H304.51V40ZM282.06 23.31V16.11H301.31V23.31Z" fill="#EEF3F8"/><path d="M369.2 40.69Q364.46 40.69 360.43 39.14Q356.4 37.6 353.46 34.8Q350.51 32 348.89 28.23Q347.26 24.46 347.26 20Q347.26 15.54 348.89 11.77Q350.51 8 353.49 5.2Q356.46 2.4 360.46 0.86Q364.46 -0.69 369.14 -0.69Q373.89 -0.69 377.86 0.86Q381.83 2.4 384.77 5.2Q387.71 8 389.37 11.74Q391.03 15.49 391.03 20Q391.03 24.46 389.37 28.26Q387.71 32.06 384.77 34.83Q381.83 37.6 377.86 39.14Q373.89 40.69 369.2 40.69ZM369.14 32.8Q371.83 32.8 374.09 31.89Q376.34 30.97 378.06 29.26Q379.77 27.54 380.71 25.2Q381.66 22.86 381.66 20Q381.66 17.14 380.71 14.8Q379.77 12.46 378.09 10.74Q376.4 9.03 374.11 8.11Q371.83 7.2 369.14 7.2Q366.46 7.2 364.2 8.11Q361.94 9.03 360.23 10.74Q358.51 12.46 357.57 14.8Q356.63 17.14 356.63 20Q356.63 22.8 357.57 25.17Q358.51 27.54 360.2 29.26Q361.89 30.97 364.17 31.89Q366.46 32.8 369.14 32.8ZM408.86 40V0H416.51L440.11 28.8H436.4V0H445.54V40H437.94L414.29 11.2H418V40Z" fill="#5ED3E6"/></g></svg></a>
+    <nav aria-label="ページ内メニュー">
+      <span class="navlinks"><a href="#how">使い方</a><a href="#price">料金</a><a href="#faq">よくある質問</a></span>
+      <a class="btn sm" href="#signup" data-cta="header">事前登録</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="bg" aria-hidden="true"></div>
+  <a class="scrollcue" href="#why-sec" aria-label="下へスクロール"><span></span></a>
+  <div class="wrap">
+    <div class="copy">
+      <h1><span class="nw">「できた」が、</span><br><span class="nw">増えていく。</span></h1>
+      <div class="tagline">Paddle on. Ride better.</div>
+      <p class="lead">海から上がったら30秒で記録。<br>タップで振り返って、次に意識することを1つだけ。<br>「上手くなってる」が、ちゃんとわかるサーフィンの記録アプリ。</p>
+      <div class="cta-row">
+        <a class="btn" href="#signup" data-cta="hero">事前登録する（無料）</a>
+        <div class="store" aria-label="App Store版 準備中"><span class="t"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 13c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-1.9-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C5.7 7.5 4 8.5 3.1 10.1c-1.9 3.3-.5 8.1 1.3 10.8.9 1.3 2 2.7 3.3 2.7s1.8-.9 3.4-.9 2 .9 3.4.8c1.4 0 2.3-1.3 3.2-2.6.7-1 1.2-2.1 1.5-3.2-.1 0-3.2-1.2-3.2-4.7zM13.6 5.6c.7-.9 1.2-2 1.1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3-1.5z"/></svg>App Store</span><span class="soon">準備中</span></div>
+      </div>
+      <p class="micro">メールアドレスだけで、すぐに登録できます</p>
+    </div>
+    <div class="phones-wrap"><div class="phones">
+      <div class="iphone"><i></i><i></i><i></i><i></i><div class="bz"><video id="demovid" muted loop playsinline preload="metadata" poster="img/demo-poster.jpg" width="540" height="1168" aria-label="PADDLE ONの使い方イメージ動画（試作中のデザイン）。波チェック、記録、振り返り、次の課題、カレンダーの順に画面が切り替わります">
+          <source src="video/demo-screen.webm" type="video/webm">
+          <source src="video/demo-screen.mp4" type="video/mp4">
+        </video></div><span class="di"></span></div>
+      <div class="iphone sub"><i></i><i></i><i></i><i></i><div class="bz"><img src="img/app-record.jpg" alt="記録タブ。波乗りカレンダーと記録の一覧" width="540" height="1169" loading="lazy"></div><span class="di"></span></div>
+    </div>
+      <p class="vnote heronote2">※画面は試作中のデザインです</p></div>
+  </div>
+</section>
+
+<section class="why" id="why-sec">
+  <div class="wrap rv">
+    <h2 class="h2">通っているのに、<br>上手くなってる気がしない？</h2>
+    <div class="cards3 stagger">
+      <div class="card"><div class="t">何がダメだったか、言葉にできない</div><div class="ans"><span>タップで答える<wbr>だけで、<wbr>原因が<wbr>言葉になる。</span></div></div>
+      <div class="card"><div class="t">前回の気づきを、忘れてしまう</div><div class="ans"><span>次に意識する<wbr>ことを1つ、<wbr>次の海の前に。</span></div></div>
+      <div class="card"><div class="t">上手くなっているのか、わからない</div><div class="ans"><span>回数と<wbr>「できた」の数で、<wbr>変化が見える。</span></div></div>
+    </div>
+    <p class="lead">記録して、振り返るだけ。海上がりの30秒で。</p>
+  </div>
+</section>
+
+<section class="log">
+  <div class="wrap rv">
+    <div class="txt">
+      <h2 class="h2">記録するだけで、<br>見えてくる。</h2>
+      <p class="lead">「1年続けたのに」と思っても、数えてみると海に入れたのは十数回、ということも。<b style="color:var(--text)">回数と間隔がわかれば、伸び悩みの理由に見当がつきます。</b></p>
+      <p class="sub">むずかしい分析はいりません。記録とカレンダーだけでも、ちゃんと楽しめます。</p>
+    </div>
+    <div class="pace" role="img" aria-label="今年の記録の例：海に入った11回、平均の間隔24日、いちばん空いたのは58日">
+      <div class="top"><span>今年の記録</span><span class="free">イメージ</span></div>
+      <div class="stats">
+        <div class="stat"><div class="l">海に入った</div><div class="n">11<small>回</small></div></div>
+        <div class="stat"><div class="l">平均の間隔</div><div class="n">24<small>日</small></div></div>
+        <div class="stat hl"><div class="l">いちばん空いた</div><div class="n">58<small>日</small></div></div>
+      </div>
+      <div class="bars"><div class="bar zero"><i></i><b>1</b></div><div class="bar"><i style="height:calc((100% - 22px) * 0.25)"></i><b>2</b></div><div class="bar zero"><i></i><b>3</b></div><div class="bar"><i style="height:calc((100% - 22px) * 0.25)"></i><b>4</b></div><div class="bar"><i style="height:calc((100% - 22px) * 0.5)"></i><b>5</b></div><div class="bar"><i style="height:calc((100% - 22px) * 0.25)"></i><b>6</b></div><div class="bar"><i style="height:calc((100% - 22px) * 0.75)"></i><b>7</b></div><div class="bar"><i style="height:calc((100% - 22px) * 0.5)"></i><b>8</b></div><div class="bar now"><i style="height:calc((100% - 22px) * 0.25)"></i><b>9</b></div><div class="bar future"><i></i><b>10</b></div><div class="bar future"><i></i><b>11</b></div><div class="bar future"><i></i><b>12</b></div></div>
+      <div class="note">月ごとの回数と、間があいた時期がひと目でわかる。</div>
+    </div>
+    <div class="calwrap" role="img" aria-label="カレンダーのイメージ：入った日が増えるほど色が濃くなる">
+      <div class="calhd"><span>続けるほど、カレンダーが埋まる</span><span class="free">イメージ</span></div>
+      <div class="cal" id="cal"></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="how" id="how">
+  <div class="wrap rv">
+    <div class="head">
+      <h2 class="h2">記録する。振り返る。<br class="sp">積み上げる。</h2>
+      <div class="snav"><button type="button" class="sbtn" id="howprev" aria-label="前のスライド"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="sbtn" id="hownext" aria-label="次のスライド"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+    </div>
+    <div class="slider" role="region" aria-roledescription="カルーセル" aria-label="PADDLE ONの使い方">
+      <ul class="track" id="howtrack" tabindex="0">
+        <li class="slide" role="group" aria-roledescription="スライド" aria-label="1 / 4：波チェック">
+          <div class="iphone"><i></i><i></i><i></i><i></i><div class="bz"><img src="img/app-check.jpg" alt="波チェックの画面。入るか見送るかを選ぶ" width="540" height="1169" loading="lazy"></div><span class="di"></span></div>
+          <div class="txt"><span class="num">01</span><h3>波チェック</h3><p class="lead">海に着いたら、入るか見送るかをタップ。波のサイズはラベルで選ぶだけ。風と潮は自動で記録されます。</p></div>
+        </li>
+        <li class="slide" role="group" aria-roledescription="スライド" aria-label="2 / 4：記録する">
+          <div class="iphone"><i></i><i></i><i></i><i></i><div class="bz"><img src="img/app-session.jpg" alt="セッション記録の画面" width="540" height="1169" loading="lazy"></div><span class="di"></span></div>
+          <div class="txt"><span class="num">02</span><h3>記録する</h3><p class="lead">海から上がったら30秒。タップだけで記録完了。写真や動画はなくてもOK。</p></div>
+        </li>
+        <li class="slide" role="group" aria-roledescription="スライド" aria-label="3 / 4：振り返る">
+          <div class="iphone"><i></i><i></i><i></i><i></i><div class="bz"><img src="img/app-review.jpg" alt="振り返りの画面。質問に答えると次回意識することが表示される" width="540" height="1169" loading="lazy"></div><span class="di"></span></div>
+          <div class="txt"><span class="num">03</span><h3>振り返る</h3><p class="lead">質問にタップで答えるだけ。言葉にできなかった原因と、次に意識することが見えてくる。</p></div>
+        </li>
+        <li class="slide" role="group" aria-roledescription="スライド" aria-label="4 / 4：課題で積み上げる">
+          <div class="iphone"><i></i><i></i><i></i><i></i><div class="bz"><img src="img/app-goal.jpg" alt="課題の詳細画面。できた本数の推移" width="540" height="1169" loading="lazy"></div><span class="di"></span></div>
+          <div class="txt"><span class="num">04</span><h3>課題で積み上げる</h3><p class="lead">テンプレートから課題を選んで、できた数を記録。「できた日」が増えていくのが見える。</p></div>
+        </li>
+      </ul>
+    </div>
+    <div class="sdots" id="howdots" role="tablist" aria-label="スライドを選ぶ"></div>
+    <div class="midcta"><a class="btn" href="#signup" data-cta="mid">事前登録する（無料）</a></div>
+  </div>
+</section>
+
+<section class="feat">
+  <div class="wrap rv">
+    <h2 class="h2">続けたくなる、仕組み。</h2>
+    <div class="cards4 stagger">
+      <div class="card"><div class="dot" style="background:var(--cyan)"></div><div class="t">波乗りカレンダー</div><div class="d">入った日・見送った日・陸トレを色で。続けるほど海が埋まっていく。</div></div>
+      <div class="card"><div class="dot" style="background:var(--sand)"></div><div class="t">課題と「できた」</div><div class="d">「テイクオフ」「アップス＆ダウン」。ショート・ロングのテンプレートから選ぶだけ。</div></div>
+      <div class="card"><div class="dot" style="background:#2E6E7C"></div><div class="t">海の写真も、記録と一緒に</div><div class="d">その日の写真を記録に添えて。写真フォルダに埋もれず、いつ・どこの海だったかがすぐわかる。</div></div>
+      <div class="card"><div class="dot" style="background:var(--yellow)"></div><div class="t">マイボード・マイポイント</div><div class="d">ボードとフィン、よく行くポイントを登録。記録がタップだけで済む。</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap rv">
+    <div class="box">
+      <div class="in">
+        <h2>PADDLE ON<span><span class="vh">（</span>パドルオン<span class="vh">）</span></span></h2>
+        <p>「PADDLE ON」は「漕ぎ続けろ」。乗れなかった日も、次の波に向かってパドルを続ける。上達しているサーファーは、みんなそうしてきました。<br>記録して、振り返って、また漕ぎ出す。その一本一本を、次の「できた」につなげるためのアプリです。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="price" id="price">
+  <div class="wrap rv">
+    <div class="head">
+      <h2 class="h2">無料で使えます。</h2>
+      <p class="lead">記録から振り返りまで、基本の機能はすべて無料です。</p>
+    </div>
+    <ul class="freelist">
+      <li><b>記録・カレンダー</b><span>日・週・月で、海に入った日が見える</span></li>
+      <li><b>波チェック</b><span>入る・見送るを記録。風と潮は自動で</span></li>
+      <li><b>振り返り</b><span>質問にタップで答えて、次の課題を1つ</span></li>
+      <li><b>課題と「できた」</b><span>テンプレートから選んで、できた数を記録</span></li>
+    </ul>
+    <div class="pluscard">
+      <div class="phead"><span class="pname">PADDLE ON <b>Plus</b></span><span class="pbadge">検討中</span></div>
+      <p class="pdesc">もっと上達したい人のための有料プランとして、こんな機能を検討しています。</p>
+      <ul class="plist">
+        <li><b>動画でフォームを比べる</b><span>前回と今回のライディングを並べて、変化を見比べる</span></li>
+        <li><b>AIと振り返る</b><span>会話しながら、原因と次に意識することを深掘りする</span></li>
+      </ul>
+      <p class="pfine">提供の有無・内容・料金は未定です。無料の機能は、有料プランができてもそのまま使い続けられます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="maker">
+  <div class="wrap rv">
+    <div class="mbox">
+      <div class="mhead">つくっている人</div>
+      <p class="mlead">サーフィン歴3年。いまも初心者です。</p>
+      <p>最初に海に入ったのは20代。仕事の先輩に誘われて行ったものの、沖に流され、前にも進めず、溺れかけて一度はあきらめました。それから10数年、友人に誘われて再挑戦し、いまに至ります。</p>
+      <p>「上手くなってる」が自分でもわかるようにしたくて、このアプリをつくり始めました。同じように「通っているのに、上手くなってる気がしない」人と一緒に、このアプリを育てていけたらうれしいです。</p>
+      <div class="xrow"><p>デザインや試作の様子は X で発信しています。</p><a class="xlink" href="https://x.com/nnakamura_tech" target="_blank" rel="noopener" aria-label="X（@nnakamura_tech）を開く" title="@nnakamura_tech"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="signup" id="signup">
+  <div class="wrap rv">
+    <div class="box">
+      <div class="txt">
+        <h2 class="h2">事前登録</h2>
+        <p class="goal">100名集まったら、本格開発スタート。</p>
+        <p class="goalsub">いまは、デザインと試作の段階です。</p>
+        <ul>
+          <li>登録状況と進捗のお知らせ</li>
+          <li>β（ベータ）版のご招待</li>
+          <li>アプリ公開のお知らせ</li>
+        </ul>
+        <p class="fine">登録は無料です。メールはこの3つ以外には使いません。いつでも配信を止められます。</p>
+      </div>
+      <div class="formbox" id="formbox">
+        <form id="signup-form" novalidate>
+          <label class="f">メールアドレス<input type="email" name="email" autocomplete="email" inputmode="email" required placeholder="you@example.com"></label>
+          <label class="f" id="devfield"><span>お使いのスマホ<span class="opt">任意</span></span>
+            <select name="device"><option value="">選んでください</option><option value="iphone">iPhone</option><option value="android">Android</option></select>
+          </label>
+          <div class="two">
+            <label class="f"><span>サーフィン歴<span class="opt">任意</span></span>
+              <select name="surf_years"><option value="">選んでください</option><option value="lt1">1年未満</option><option value="1to2">1〜2年</option><option value="3to5">3〜5年</option><option value="gt5">5年以上</option></select>
+            </label>
+            <label class="f"><span>海に行く頻度<span class="opt">任意</span></span>
+              <select name="frequency"><option value="">選んでください</option><option value="lt1m">月1回未満</option><option value="1to2m">月1〜2回</option><option value="3to4m">月3〜4回</option><option value="2pw">週2回以上</option></select>
+            </label>
+          </div>
+          <div class="hp" aria-hidden="true"><label>会社名<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+          <fieldset class="wants">
+            <legend>欲しい機能<span class="opt">任意・いくつでも</span></legend>
+            <label><input type="checkbox" name="wants" value="apple_watch"><span>Apple Watch</span></label>
+            <label><input type="checkbox" name="wants" value="photo"><span>海の写真の整理</span></label>
+            <label><input type="checkbox" name="wants" value="sns_card"><span>SNS用の記録カード</span></label>
+            <label><input type="checkbox" name="wants" value="other" id="wants-other-cb" aria-controls="wants-other-field"><span>その他</span></label>
+          </fieldset>
+          <label class="f wants-other" id="wants-other-field" hidden><span>その他の欲しい機能<span class="opt">任意</span></span><input type="text" name="wants_other" maxlength="100" autocomplete="off" placeholder="例：ボードごとの記録を比べたい"></label>
+          <p class="cond">※本アプリは、事前登録者が100名に達した時点で本格的なアプリ開発に着手し、リリースを目指します（募集期限：2027年夏）。期限までに100名に達しなかった場合は、本格開発を見合わせることがあります。開発状況や見合わせに関するお知らせは、ご登録いただいたメールアドレス（または公式SNS）にてお伝えいたします。</p>
+          <button class="btn submit" type="submit">無料で事前登録する</button>
+          <p class="agree">登録すると、<a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意したものとみなします。</p>
+          <p class="msg" id="form-msg" role="status" aria-live="polite"></p>
+        </form>
+        <div class="done" role="status" aria-live="polite" tabindex="-1" id="done">
+          <h3 id="done-h">ご登録ありがとうございます。</h3>
+          <p id="done-p">ご登録のメールアドレスに、確認のメールをお送りしました。届かない場合は、迷惑メールフォルダもご確認ください。登録状況や進捗、β版のご案内も、このメールアドレスにお知らせします。それまで、よい波を。</p>
+          <button type="button" class="again" id="again">別のメールアドレスで登録する</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap rv">
+    <h2 class="h2">よくある質問</h2>
+    <div>
+      <details class="qa"><summary class="q">いつ使えるようになりますか？</summary><div class="a">事前登録者が100名に達した時点で本格的なアプリ開発に着手し、iPhone版のリリースを目指します（募集期限：2027年夏）。期限までに100名に達しなかった場合は、本格開発を見合わせることがあります。リリース時期や開発状況は、ご登録いただいたメールアドレス（または公式SNS）にてお知らせします。β版のご案内も、事前登録いただいた方からお送りします。</div></details>
+      <details class="qa"><summary class="q">無料で使えますか？</summary><div class="a">はい。記録・カレンダー・振り返りは無料で使えます。動画やAIを使った有料機能も検討していますが、できた場合も使うかどうかは自由に選べます。</div></details>
+      <details class="qa"><summary class="q">Androidでも使えますか？</summary><div class="a">まずはiPhone版からリリースします。Android版は、iPhone版の反応を見ながら検討します。公開が決まったら、ご登録のメールアドレスでお知らせします。</div></details>
+      <details class="qa"><summary class="q">Apple Watchには対応しますか？</summary><div class="a">今のところ予定はありません。ご要望が多ければ対応を検討します。事前登録フォームの「欲しい機能」で教えてください。</div></details>
+      <details class="qa"><summary class="q">SNSで記録しているけど、何が違うの？</summary><div class="a">SNSは「思い出」、PADDLE ONは「上達」の記録です。海に入った回数や間隔、課題の「できた」の数、次に意識することなど、写真だけでは残らないことを、タップだけで積み上げられます。記録に写真を添えることもできます。</div></details>
+      <details class="qa"><summary class="q">波予報はありますか？</summary><div class="a">ありません。PADDLE ONは「記録して上達する」ことに集中したアプリです。風と潮は、記録に自動で添付されます。</div></details>
+      <details class="qa"><summary class="q">初心者でも使えますか？</summary><div class="a">はい。スープで立つ練習中の方から、技を磨きたい中級者まで使えるよう、課題のテンプレートを用意しています。</div></details>
+      <details class="qa"><summary class="q">ロングボードにも対応していますか？</summary><div class="a">はい。ショートとロングで、課題のテンプレートが切り替わります。</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap rv">
+    <div class="icon"><svg width="80" height="80" viewBox="0 0 1024 1024" role="img" aria-label="PADDLE ON アプリアイコン" style="display: block; flex-shrink: 0; border-radius: 0"><rect width="1024" height="1024" fill="#070E1A"/><g transform="translate(171.6 142.0) scale(7.4)"><path d="M8 42 q 8 -7 16 0 q 8 7 16 0 q 8 -7 16 0 L 80 18" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 16 L82 16 L82 32" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.0 62.0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.0 82.0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div>
+    <h2>次の一本は、<br>もっといい。</h2>
+    <a class="btn" href="#signup" data-cta="closing">事前登録する（無料）</a>
+    <p class="micro">メールアドレスだけで、すぐに登録できます</p>
+  </div>
+</section>
+</main>
+<a class="totop" id="totop" href="#top" aria-label="ページの先頭へ戻る"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></a>
+
+<footer>
+  <div class="wrap">
+    <svg width="138.2" height="16" viewBox="0 -2 552.7 64" role="img" aria-label="PADDLE ON" style="display: block; flex-shrink: 0"><g transform="translate(-2.96 -9.26) scale(0.74)"><path d="M8 42 q 8 -7 16 0 q 8 7 16 0 q 8 -7 16 0 L 80 18" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 16 L82 16 L82 32" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.0 62.0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.0 82.0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(100.4 12)"><path d="M4.74 40V0H22.06Q27.43 0 31.31 1.74Q35.2 3.49 37.31 6.74Q39.43 10 39.43 14.51Q39.43 18.97 37.31 22.23Q35.2 25.49 31.31 27.23Q27.43 28.97 22.06 28.97H9.89L14 24.8V40ZM14 25.83 9.89 21.43H21.54Q25.83 21.43 27.94 19.6Q30.06 17.77 30.06 14.51Q30.06 11.2 27.94 9.37Q25.83 7.54 21.54 7.54H9.89L14 3.14ZM52.17 40 70 0H79.14L97.03 40H87.31L72.69 4.69H76.34L61.66 40ZM61.09 31.43 63.54 24.4H84.11L86.63 31.43ZM112.06 40V0H130.23Q136.74 0 141.71 2.49Q146.69 4.97 149.49 9.43Q152.29 13.89 152.29 20Q152.29 26.06 149.49 30.54Q146.69 35.03 141.71 37.51Q136.74 40 130.23 40ZM121.31 32.4H129.77Q133.77 32.4 136.71 30.89Q139.66 29.37 141.29 26.57Q142.91 23.77 142.91 20Q142.91 16.17 141.29 13.4Q139.66 10.63 136.71 9.11Q133.77 7.6 129.77 7.6H121.31ZM170.11 40V0H188.29Q194.8 0 199.77 2.49Q204.74 4.97 207.54 9.43Q210.34 13.89 210.34 20Q210.34 26.06 207.54 30.54Q204.74 35.03 199.77 37.51Q194.8 40 188.29 40ZM179.37 32.4H187.83Q191.83 32.4 194.77 30.89Q197.71 29.37 199.34 26.57Q200.97 23.77 200.97 20Q200.97 16.17 199.34 13.4Q197.71 10.63 194.77 9.11Q191.83 7.6 187.83 7.6H179.37ZM228.17 40V0H237.43V32.46H257.49V40ZM273.54 40V0H303.77V7.43H282.74V32.57H304.51V40ZM282.06 23.31V16.11H301.31V23.31Z" fill="#EEF3F8"/><path d="M369.2 40.69Q364.46 40.69 360.43 39.14Q356.4 37.6 353.46 34.8Q350.51 32 348.89 28.23Q347.26 24.46 347.26 20Q347.26 15.54 348.89 11.77Q350.51 8 353.49 5.2Q356.46 2.4 360.46 0.86Q364.46 -0.69 369.14 -0.69Q373.89 -0.69 377.86 0.86Q381.83 2.4 384.77 5.2Q387.71 8 389.37 11.74Q391.03 15.49 391.03 20Q391.03 24.46 389.37 28.26Q387.71 32.06 384.77 34.83Q381.83 37.6 377.86 39.14Q373.89 40.69 369.2 40.69ZM369.14 32.8Q371.83 32.8 374.09 31.89Q376.34 30.97 378.06 29.26Q379.77 27.54 380.71 25.2Q381.66 22.86 381.66 20Q381.66 17.14 380.71 14.8Q379.77 12.46 378.09 10.74Q376.4 9.03 374.11 8.11Q371.83 7.2 369.14 7.2Q366.46 7.2 364.2 8.11Q361.94 9.03 360.23 10.74Q358.51 12.46 357.57 14.8Q356.63 17.14 356.63 20Q356.63 22.8 357.57 25.17Q358.51 27.54 360.2 29.26Q361.89 30.97 364.17 31.89Q366.46 32.8 369.14 32.8ZM408.86 40V0H416.51L440.11 28.8H436.4V0H445.54V40H437.94L414.29 11.2H418V40Z" fill="#5ED3E6"/></g></svg>
+    <nav aria-label="フッター"><a href="privacy.html">プライバシーポリシー</a><a href="mailto:support@paddleon.app">お問い合わせ</a><a class="fx" href="https://x.com/nnakamura_tech" target="_blank" rel="noopener" aria-label="X（@nnakamura_tech）を開く"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></nav>
+    <small>© 2026 PADDLE ON</small>
+  </div>
+</footer>
+
+<script>
+/* ===== 設定：Supabase のプロジェクト情報に書き換えてください ===== */
+const SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co';
+const SUPABASE_KEY = 'YOUR-PUBLISHABLE-OR-ANON-KEY';
+/* ================================================================ */
+
+(function () {
+  const form = document.getElementById('signup-form');
+  const msg = document.getElementById('form-msg');
+  const box = document.getElementById('formbox');
+  const btn = form.querySelector('button[type=submit]');
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  /* 「その他」を選んだときだけ自由入力を出す */
+  const otherCb = document.getElementById('wants-other-cb'), otherField = document.getElementById('wants-other-field');
+  if (otherCb && otherField) {
+    const syncOther = () => { otherField.hidden = !otherCb.checked; otherCb.setAttribute('aria-expanded', otherCb.checked ? 'true' : 'false'); if (otherCb.checked) otherField.querySelector('input').focus(); };
+    otherCb.addEventListener('change', syncOther); otherCb.setAttribute('aria-expanded', 'false');
+  }
+  /* phones: detect the OS from the user agent and skip the question */
+  const ua = navigator.userAgent || '';
+  const uaDevice = /iPhone|iPod/.test(ua) ? 'iphone' : /Android/.test(ua) ? 'android' : '';
+  if (uaDevice) { const fld = document.getElementById('devfield'); if (fld) fld.hidden = true; form.elements.device.value = uaDevice; }
+  const params = new URLSearchParams(location.search);
+  const source = (params.get('utm_source') || params.get('ref') || document.referrer.replace(/^https?:\/\//, '').split('/')[0] || 'direct').slice(0, 80);
+
+  function fail(text) { msg.textContent = text; msg.className = 'msg err'; }
+  /* このブラウザで登録済みかを覚えておく（使えない環境では何もしない） */
+  const KEY = 'paddleon_signed_up';
+  const wasSignedUp = () => { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } };
+  const markSignedUp = () => { try { localStorage.setItem(KEY, '1'); } catch (e) {} };
+  if (wasSignedUp()) {
+    document.getElementById('done-h').textContent = '事前登録済みです。';
+    document.getElementById('done-p').textContent = 'このブラウザから、すでにご登録いただいています。登録状況や進捗、β版のご案内は、ご登録のメールアドレスにお知らせします。それまで、よい波を。';
+    box.classList.add('is-done');
+  }
+  document.getElementById('again').addEventListener('click', () => {
+    form.reset(); if (uaDevice) form.elements.device.value = uaDevice;
+    if (otherField) otherField.hidden = true;
+    msg.textContent = ''; msg.className = 'msg';
+    btn.disabled = false; btn.textContent = '無料で事前登録する';
+    box.classList.remove('is-done');
+    form.elements.email.focus();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = ''; msg.className = 'msg';
+    const fd = new FormData(form);
+    if (fd.get('company')) { box.classList.add('is-done'); return; } // bot
+    const email = String(fd.get('email') || '').trim().toLowerCase();
+    if (!email) return fail('メールアドレスを入力してください。');
+    if (!EMAIL_RE.test(email) || email.length > 254) return fail('メールアドレスの形をご確認ください。');
+    const wants = fd.getAll('wants').map(String).filter(v => ['apple_watch', 'photo', 'sns_card', 'other'].includes(v));
+    const wantsOther = wants.includes('other') ? String(fd.get('wants_other') || '').trim().slice(0, 100) : '';
+    // 登録は join_waitlist 関数経由。新規でも登録済みでも同じ結果が返る（登録済みかどうかは外からわからない）
+    const row = { p_email: email, p_device: fd.get('device') || null, p_surf_years: fd.get('surf_years') || null, p_frequency: fd.get('frequency') || null, p_wants: wants.length ? wants : null, p_wants_other: wantsOther || null, p_source: source };
+    btn.disabled = true; btn.textContent = '送信中…';
+    try {
+      const headers = { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY };
+      if (SUPABASE_KEY.startsWith('eyJ')) headers['Authorization'] = 'Bearer ' + SUPABASE_KEY;
+      const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/join_waitlist', { method: 'POST', headers, body: JSON.stringify(row) });
+      if (res.ok) {
+        const first = !wasSignedUp();
+        markSignedUp();
+        document.getElementById('done-h').textContent = 'ご登録ありがとうございます。';
+        document.getElementById('done-p').textContent = 'ご登録のメールアドレスに、確認のメールをお送りしました。届かない場合は、迷惑メールフォルダもご確認ください。登録状況や進捗、β版のご案内も、このメールアドレスにお知らせします。それまで、よい波を。';
+        box.classList.add('is-done');
+        document.getElementById('done').focus();
+        // GA4 の sign_up は、このブラウザで初めて登録したときだけ送る
+        if (first && typeof window.gtag === 'function') window.gtag('event', 'sign_up', { method: 'waitlist' });
+      } else {
+        throw new Error('HTTP ' + res.status);
+      }
+    } catch (err) {
+      fail('送信できませんでした。時間をおいて、もう一度お試しください。');
+      btn.disabled = false; btn.textContent = '無料で事前登録する';
+    }
+  });
+})();
+
+(function () {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* calendar image (sample pattern, not real data) */
+  const LV = ['#172338','#1E4A5C','#2A7A90','#3FA9C2','#5ED3E6'];
+  const pat = [0,0,2,0,0,4,1, 0,0,0,0,0,3,4, 0,1,0,0,0,4,2, 0,0,0,3,0,4,4, 0,0,0,0,0,2,0];
+  const cal = document.getElementById('cal');
+  if (cal) {
+    cal.innerHTML = pat.map(() => '<i></i>').join('');
+    const cells = cal.children;
+    const paint = () => { for (let k = 0; k < cells.length; k++) { cells[k].style.transitionDelay = (k * 25) + 'ms'; cells[k].style.background = LV[pat[k]]; } };
+    cal.paint = paint;
+    if (reduce) { paint(); }
+  }
+  function countUp(el) {
+    const n = parseInt(el.dataset.to, 10), dur = 1500, t0 = performance.now() + 600;
+    const tick = (now) => { const p = Math.max(0, Math.min(1, (now - t0) / dur)), e = 1 - Math.pow(1 - p, 3);
+      el.firstChild.nodeValue = String(Math.round(n * e)); if (p < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }
+  const nums = document.querySelectorAll('.stat .n');
+  nums.forEach(el => { const m = el.firstChild && el.firstChild.nodeType === 3 ? parseInt(el.firstChild.nodeValue, 10) : NaN; if (!isNaN(m)) el.dataset.to = m; });
+  const targets = document.querySelectorAll('.rv, .stagger, .pace');
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach(el => el.classList.add('is-in'));
+    return;
+  }
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (!e.isIntersecting) return;
+      e.target.classList.add('is-in'); io.unobserve(e.target);
+      if (e.target.classList.contains('pace')) e.target.querySelectorAll('.n[data-to]').forEach(countUp);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  targets.forEach(el => { if (el.classList.contains('pace')) el.querySelectorAll('.n[data-to]').forEach(n => n.firstChild.nodeValue = '0'); io.observe(el); });
+  if (cal) { const io2 = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { cal.classList.add('go'); cal.paint(); io2.disconnect(); } }); }, { threshold: 0.4 }); io2.observe(cal); }
+})();
+
+(function () {
+  const v = document.getElementById('demovid');
+  if (!v) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let userPaused = reduce;
+  const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+  v.addEventListener('click', () => { if (v.paused) { userPaused = false; play(); } else { userPaused = true; v.pause(); } });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { if (!userPaused) play(); } else v.pause(); }); }, { threshold: 0.5 }).observe(v);
+  }
+})();
+
+(function () {
+  const track = document.getElementById('howtrack'); if (!track) return;
+  const slides = [...track.children], prev = document.getElementById('howprev'), next = document.getElementById('hownext'), dots = document.getElementById('howdots');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  slides.forEach((s, i) => { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-label', (i + 1) + '枚目'); b.addEventListener('click', () => { stop(); go(i); }); dots.appendChild(b); });
+  const cx = () => track.scrollLeft + track.clientWidth / 2;
+  const cur = () => { let best = 0, d = Infinity; slides.forEach((s, i) => { const x = Math.abs(s.offsetLeft - track.offsetLeft + s.offsetWidth / 2 - cx()); if (x < d) { d = x; best = i; } }); return best; };
+  const go = (i) => { i = Math.max(0, Math.min(slides.length - 1, i)); const s = slides[i]; track.scrollTo({ left: s.offsetLeft - track.offsetLeft - (track.clientWidth - s.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' }); };
+  const atEnd = () => cur() === slides.length - 1;
+  const sync = () => { const i = cur(); [...dots.children].forEach((b, k) => b.setAttribute('aria-selected', k === i ? 'true' : 'false')); prev.disabled = i === 0; next.disabled = atEnd(); };
+  let raf; track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
+  prev.addEventListener('click', () => { stop(); go(cur() - 1); });
+  next.addEventListener('click', () => { stop(); go(atEnd() ? slides.length : cur() + 1); });
+  track.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { e.preventDefault(); stop(); go(cur() + 1); } if (e.key === 'ArrowLeft') { e.preventDefault(); stop(); go(cur() - 1); } });
+  /* gentle autoplay until the visitor touches the slider */
+  let timer = null, visible = false;
+  const stop = () => { clearInterval(timer); timer = null; auto = false; };
+  let auto = !reduce;
+  const tick = () => { if (!visible || document.hidden) return; go(atEnd() ? 0 : cur() + 1); };
+  ['pointerdown', 'wheel', 'touchstart', 'focusin'].forEach(ev => track.addEventListener(ev, stop, { passive: true }));
+  if ('IntersectionObserver' in window) new IntersectionObserver((es) => { es.forEach(e => { visible = e.isIntersecting; if (visible && auto && !timer) timer = setInterval(tick, 5000); }); }, { threshold: 0.5 }).observe(track);
+  window.addEventListener('resize', sync); sync();
+})();
+
+(function () {
+  const h = document.querySelector('.hdr'); if (!h) return;
+  const top = document.getElementById('totop');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let last = window.scrollY, hidden = false;
+  const f = () => {
+    const y = window.scrollY, dy = y - last;
+    if (y <= h.offsetHeight) { if (hidden) { hidden = false; h.classList.remove('is-min'); } }
+    else if (dy > 6 && !hidden) { hidden = true; h.classList.add('is-min'); }
+    else if (dy < -6 && hidden) { hidden = false; h.classList.remove('is-min'); }
+    if (Math.abs(dy) > 6 || y <= h.offsetHeight) last = y;
+    if (top) top.classList.toggle('show', y > window.innerHeight);
+  };
+  window.addEventListener('scroll', f, { passive: true }); f();
+  if (top) top.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
+})();
+
+/* GA4: CTA clicks and form start */
+(function () {
+  const send = (name, params) => { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); };
+  document.querySelectorAll('[data-cta]').forEach(a => a.addEventListener('click', () => send('cta_click', { cta_location: a.dataset.cta })));
+  const form = document.getElementById('signup-form');
+  if (form) { let started = false; form.addEventListener('focusin', () => { if (!started) { started = true; send('form_start_signup'); } }); }
+})();
+
+(function () {
+  const els = document.querySelectorAll('.how, .closing, .about .box');
+  const on = (e) => e.classList.add('bg-on');
+  if (!('IntersectionObserver' in window)) { els.forEach(on); return; }
+  const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { on(e.target); io.unobserve(e.target); } }), { rootMargin: '800px 0px' });
+  els.forEach(e => io.observe(e));
+})();
+</script>
+</body>
+</html>

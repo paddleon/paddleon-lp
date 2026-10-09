@@ -1,0 +1,25 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 秘密情報（キーは絶対にコミットしない）
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# 登録者データ（CSVエクスポートなど）
+*.csv
+*.xlsx
+
+# Supabase CLI のローカルファイル
+supabase/.branches/
+supabase/.temp/
+supabase/.env
+
+# Cloudflare / Wrangler
+.wrangler/
+node_modules/
