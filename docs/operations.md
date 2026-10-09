@@ -29,3 +29,24 @@ GA4の管理画面 →「データの表示」→「イベント」で `sign_up`
 - **写真**：背景写真は軽量な WebP 形式です。ヒーローがPC用 `img/hero-bg.webp`／スマホ用 `img/hero-bg-sp.webp`、使い方スライダーが `img/how-bg.webp`、ABOUTが `img/about-bg.webp`、最後のセクションが `img/closing-bg.webp`。ヒーローは人の位置に合わせてCSSで配置しているので、差し替える場合は位置の調整が必要です。
 - **アクセス解析**を入れる場合は、`</head>` の前に Cloudflare Web Analytics（無料・Cookieなし）などのタグを追加します。Google Analytics を入れる場合は、プライバシーポリシーにその旨を追記してください。
 - フォームにはスパム対策として、人には見えない入力欄（ハニーポット）を入れてあります。スパムが増えてきたら Cloudflare Turnstile の追加を検討してください。
+
+## お礼メールの仕組み
+
+LPで登録 → `join_waitlist` が `waitlist` に1行追加 → トリガー `send_thanks_after_insert`（pg_net）→ Edge Function `send-thanks` → Resend で送信。送ったら `thanks_sent_at` に日時が入ります。
+
+- 同じ人に二重に送らない（`thanks_sent_at` で管理）。配信停止（`unsubscribed_at` 記入済み）の人には送らない。
+- いたずらで大量登録されたときに備え、1時間あたり30通が上限（`index.ts` の `MAX_PER_HOUR`）。上限で送らなかった行は `thanks_sent_at` が空のまま残ります。
+- 本文は `supabase/functions/send-thanks/index.ts` の `textBody()`／`htmlBody()`。見た目は同じフォルダの `preview.html` で確認できます。変えたらダッシュボードで Deploy し直します（JWT の検証はオフのまま）。
+- 届かないときは `supabase/send_thanks_trigger.sql` の末尾の確認用SQLを実行します。
+
+## 秘密の値の置き場所
+
+リポジトリには入れません。
+
+| 値 | 置き場所 |
+|---|---|
+| `RESEND_API_KEY`（`re_`…） | Supabase → Edge Functions → Secrets |
+| `WEBHOOK_SECRET` | Supabase → Edge Functions → Secrets と、トリガー関数 `notify_send_thanks` の中（SQL Editor で実行したもの） |
+| `CLOUDFLARE_API_TOKEN`／`CLOUDFLARE_ACCOUNT_ID` | GitHub → Settings → Secrets and variables → Actions（Repository secrets） |
+
+トークンやキーを作り直したときは、上の置き場所をすべて更新します。`WEBHOOK_SECRET` を変えたら、`supabase/send_thanks_trigger.sql` を新しい値で実行し直します。

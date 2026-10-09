@@ -1,7 +1,7 @@
 // PADDLE ON — 事前登録のお礼メール（Supabase Edge Function）
 //
 // waitlist 表に1行追加されると、Database Webhook がこの関数を呼び、Resend でお礼メールを1通送ります。
-// 設定方法は docs/setup.md の「登録時のお礼メール」を見てください。送られるメールの見た目は同じフォルダの preview.html で確認できます。
+// 仕組みと運用は docs/operations.md の「お礼メールの仕組み」を見てください。送られるメールの見た目は同じフォルダの preview.html で確認できます。
 //
 // 必要なシークレット（Edge Functions → Secrets）:
 //   RESEND_API_KEY   Resend の API キー（re_ で始まる）

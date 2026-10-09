@@ -58,10 +58,9 @@ main に push（public/ などが変わったとき）
 
 ## ドキュメント
 
-- [docs/setup.md](docs/setup.md) … 公開までの手順（ドメイン・Supabase・Cloudflare・お礼メール）と公開後の確認リスト
-- [docs/operations.md](docs/operations.md) … 登録者の見方・集計、アクセス解析、運用の注意
+- [docs/operations.md](docs/operations.md) … 登録者の見方・集計、アクセス解析、お礼メールの仕組み、秘密の値の置き場所、運用の注意
 - [docs/lp-spec.md](docs/lp-spec.md) … LPの動き・フォーム・文言の仕様
 
 ## ライセンス
 
-ライセンスは付けていません（All rights reserved）。コードは公開していますが、著作権は作者に残り、無断での複製・改変・再配布はできません。写真は各撮影者のライセンス（Unsplash License 等）に、フォントは SIL Open Font License 1.1 に従います。
+非公開リポジトリです。ライセンスは付けていません（All rights reserved）。写真は各撮影者のライセンス（Unsplash License 等）に、フォントは SIL Open Font License 1.1 に従います。
