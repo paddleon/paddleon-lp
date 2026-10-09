@@ -1,0 +1,9 @@
+{
+  // Cloudflare Workers の設定。public フォルダをそのまま静的サイトとして公開する（ビルドなし）
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "paddleon-lp",
+  "compatibility_date": "2026-10-09",
+  "assets": {
+    "directory": "./public"
+  }
+}
