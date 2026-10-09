@@ -6,6 +6,7 @@
 
 - `public/` が公開物のすべて。ビルドなしの素のHTML/CSS/JS。`index.html` は CSS・JS をインラインで持つ1ファイル構成。
 - デプロイは GitHub Actions（Cloudflare 側の Git 連携は使わない）。`main` に push すると `.github/workflows/deploy.yml` が、チェック（`npm run check`）→ `wrangler deploy`（`wrangler.jsonc` → `assets.directory: ./public`、wrangler は package.json で固定）→ 本番の確認 → タグ `vYYYY.MM.DD[.N]` と GitHub リリース、の順に実行する。**`public/` などが変わった push = 本番公開**。`docs/`・`supabase/` だけの push では動かない。
+- 静的アセットは Range リクエストに対応していないため、`/video/*` だけ `src/worker.js` を通して 206 で部分配信している（iPhone の Safari は 206 が返らないと動画を再生しない）。動画の置き場所や名前を変えるときは `wrangler.jsonc` の `run_worker_first` も合わせる。
 - `main` 以外のブランチの push は `preview.yml` でプレビューURLへ。必要な GitHub Secrets は `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID`。
 - タグとリリースは自動で作られるので、手で `git tag` を打たない。
 - `supabase/` は push しても反映されない。SQL は SQL Editor、Edge Function はダッシュボードで手動反映（手順は skill `supabase-change`）。

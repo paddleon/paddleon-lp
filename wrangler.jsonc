@@ -1,9 +1,13 @@
 {
-  // Cloudflare Workers の設定。public フォルダをそのまま静的サイトとして公開する（ビルドなし）
+  // Cloudflare Workers の設定。public フォルダをそのまま静的サイトとして公開する（ビルドなし）。
+  // /video/* だけ src/worker.js を通して、iPhone の Safari に必要な部分配信（Range）に対応する。
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "paddleon-lp",
+  "main": "src/worker.js",
   "compatibility_date": "2026-10-09",
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/video/*"]
   }
 }

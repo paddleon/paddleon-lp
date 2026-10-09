@@ -20,7 +20,8 @@ paddleon-lp/
 ├─ docs/                   手順書・仕様書
 ├─ scripts/                本番に出す前のチェック（npm run check）
 ├─ .github/workflows/      チェック・プレビュー・本番デプロイ・リリース（GitHub Actions）
-├─ wrangler.jsonc          Cloudflare Workers の設定（public を公開）
+├─ src/worker.js           動画（/video/*）の部分配信だけを担う Worker（iPhone の Safari 用）
+├─ wrangler.jsonc          Cloudflare Workers の設定（public を公開、/video/* は worker を通す）
 └─ package.json            wrangler のバージョン固定と npm スクリプト
 ```
 
@@ -38,6 +39,7 @@ main に push（public/ などが変わったとき）
 |---|---|
 | `public/` | `main` に push → 上の流れ（GitHub Actions の **Deploy**）。チェックに落ちたら本番には出ない |
 | `main` 以外のブランチ | push するとプレビュー用URLにアップロード（GitHub Actions の **Preview**、URL はジョブの概要に表示） |
+| `src/`・`wrangler.jsonc` | `public/` と同じく本番に出る |
 | `docs/`・`supabase/` だけの変更 | 本番には出さず、タグも打たない |
 | `supabase/*.sql` | ダッシュボードの SQL Editor で実行（自動では反映されない） |
 | `supabase/functions/send-thanks` | ダッシュボードのエディタに貼って Deploy（JWT検証はオフ） |
