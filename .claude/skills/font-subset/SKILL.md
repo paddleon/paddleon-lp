@@ -33,11 +33,13 @@ print(''.join(chr(u) for u in sorted(have | extra | set(range(0x20, 0x7f)))))
 PY
 for pair in "500:Medium" "700:Bold" "900:Black"; do w=${pair%%:*}; n=${pair##*:}
   /tmp/fontenv/bin/pyftsubset "<元フォントの場所>/ZenKakuGothicNew-$n.ttf" \
-    --text-file=/tmp/fontenv/chars.txt --layout-features='*' --flavor=woff2 \
+    --text-file=/tmp/fontenv/chars.txt --layout-features='*' --name-IDs='*' --flavor=woff2 \
     --output-file=public/fonts/zkgn-$w.woff2
 done
 /tmp/fontenv/bin/python scripts/check-glyphs.py   # 全部 OK になること
 ls -l public/fonts/                               # 1ファイル 50〜80KB 程度が目安。大きく増えていないか
 ```
+
+`--name-IDs='*'` は外さない（著作権とライセンスの記載をフォント内に残すのが OFL の条件。ライセンス文は `public/fonts/OFL.txt` にも置いてある）。
 
 ファイル名は変えない（`index.html` と `privacy.html` の `@font-face` が参照している）。終わったら skill `deploy-lp` で公開する。
