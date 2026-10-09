@@ -1,0 +1,13 @@
+{
+  "name": "paddleon-lp",
+  "private": true,
+  "description": "PADDLE ON 事前登録LP（public/ をそのまま Cloudflare Workers で公開）",
+  "scripts": {
+    "check": "bash scripts/check.sh",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.149.0"
+  }
+}

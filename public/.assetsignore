@@ -1,0 +1,4 @@
+# 公開しないファイル（wrangler が public/ をアップロードするときに除外）
+.DS_Store
+Thumbs.db
+.assetsignore

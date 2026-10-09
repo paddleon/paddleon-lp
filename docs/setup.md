@@ -32,18 +32,19 @@ Cloudflare の **Email Routing**（無料）で、このアドレス宛のメー
 
 ※ 内容は一般的なひな形です。必要に応じて専門家に確認してください。
 
-### 4. Cloudflare Workers で公開する（GitHub 連携）
-リポジトリ直下の `wrangler.jsonc` で「`public` フォルダをそのまま公開する」設定にしてあります（ビルドなし）。
-1. Cloudflare ダッシュボード → **Workers & Pages → Create → Import a repository** で `paddleon/paddleon-lp` を選びます。
-2. 設定は次のとおりです。
-   - ビルドコマンド：**空欄**
-   - デプロイコマンド：`npx wrangler deploy`（初期値のまま）
-   - プレビュービルド：オン（`main` 以外のブランチは確認用URLになります）
-   - Cloudflare Access：オフ／変数：なし
-3. デプロイ後、Worker の **設定 → ドメインとルート → カスタムドメイン** で `paddleon.app` を追加します。
-4. **SSL/TLS → Edge Certificates → Always Use HTTPS** をオンにします。
+### 4. Cloudflare Workers で公開する（GitHub Actions）
+リポジトリ直下の `wrangler.jsonc` で「`public` フォルダをそのまま公開する」設定にしてあります（ビルドなし）。デプロイは GitHub Actions（`.github/workflows/deploy.yml`）が行います。
+1. Cloudflare で API トークンを作ります：**My Profile → API Tokens → Create Token → 「Edit Cloudflare Workers」テンプレート**。Account Resources は自分のアカウント、Zone Resources は `paddleon.app` に絞ります。
+2. Cloudflare の **Account ID** を控えます（Workers & Pages の画面右側、またはアカウントのホーム）。
+3. GitHub のリポジトリ **Settings → Secrets and variables → Actions → New repository secret** に登録します。
+   - `CLOUDFLARE_API_TOKEN` … 1のトークン
+   - `CLOUDFLARE_ACCOUNT_ID` … 2の ID
+4. Cloudflare 側の Git 連携（Workers Builds）を使っている場合は外します：Worker の **設定 → ビルド → Git リポジトリ → 切断**。外さないと、push のたびに二重にデプロイされます。
+5. 初回だけ、GitHub の **Actions → Deploy → Run workflow** で手動実行して、緑になることを確認します。
+6. Worker の **設定 → ドメインとルート → カスタムドメイン** で `paddleon.app` を追加します（設定済みなら不要）。
+7. **SSL/TLS → Edge Certificates → Always Use HTTPS** をオンにします。
 
-以後は `main` に push するだけで本番に反映されます（流れは README の「デプロイの流れ」）。
+以後は `main` に push するだけで、チェック → 本番 → 確認 → タグとリリースまで自動で進みます（流れは README の「デプロイの流れ」）。
 
 ### 5. 公開後の確認
 - 自分のメールアドレスで登録してみて、Supabase の **Table Editor → waitlist** に1行増えることを確認します。

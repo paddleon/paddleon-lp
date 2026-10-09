@@ -5,7 +5,9 @@
 ## 構成とデプロイ
 
 - `public/` が公開物のすべて。ビルドなしの素のHTML/CSS/JS。`index.html` は CSS・JS をインラインで持つ1ファイル構成。
-- `main` に push すると Cloudflare Workers Builds が `npx wrangler deploy`（`wrangler.jsonc` → `assets.directory: ./public`）で本番に反映する。**push = 本番公開**。`main` 以外のブランチはプレビューURLになる。
+- デプロイは GitHub Actions（Cloudflare 側の Git 連携は使わない）。`main` に push すると `.github/workflows/deploy.yml` が、チェック（`npm run check`）→ `wrangler deploy`（`wrangler.jsonc` → `assets.directory: ./public`、wrangler は package.json で固定）→ 本番の確認 → タグ `vYYYY.MM.DD[.N]` と GitHub リリース、の順に実行する。**`public/` などが変わった push = 本番公開**。`docs/`・`supabase/` だけの push では動かない。
+- `main` 以外のブランチの push は `preview.yml` でプレビューURLへ。必要な GitHub Secrets は `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID`。
+- タグとリリースは自動で作られるので、手で `git tag` を打たない。
 - `supabase/` は push しても反映されない。SQL は SQL Editor、Edge Function はダッシュボードで手動反映（手順は skill `supabase-change`）。
 - 登録の流れ: フォーム → RPC `join_waitlist`（publishable key、anon は関数の実行のみ）→ `waitlist` 表 → トリガー `send_thanks_after_insert`（pg_net）→ Edge Function `send-thanks` → Resend でお礼メール。Database Webhooks は使っていない（トリガーで代替。両方作ると二重に呼ばれる）。
 - 人向けの詳しい手順は `docs/`（setup / operations / lp-spec）。README はその入口。

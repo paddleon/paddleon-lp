@@ -1,0 +1,45 @@
+# main 以外のブランチを push すると、本番に出さずにプレビュー用URLへアップロードする。
+# URL は https://<ブランチ名>-paddleon-lp.<アカウントのサブドメイン>.workers.dev（ジョブの概要に表示）。
+name: Preview
+
+on:
+  push:
+    branches-ignore: [main]
+    paths:
+      - "public/**"
+      - "wrangler.jsonc"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    uses: ./.github/workflows/check.yml
+
+  preview:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: プレビューにアップロード
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          alias=$(printf '%s' "$BRANCH" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g' | cut -c1-40)
+          npx wrangler versions upload --preview-alias "$alias" --message "preview: $BRANCH ${GITHUB_SHA::7}" | tee upload.log
+          url=$(grep -oE 'https://[^ ]+\.workers\.dev' upload.log | grep -- "$alias" | head -1 || true)
+          echo "### プレビュー" >> "$GITHUB_STEP_SUMMARY"
+          echo "${url:-URL はログを確認してください}" >> "$GITHUB_STEP_SUMMARY"

@@ -18,19 +18,34 @@ paddleon-lp/
 │  ├─ send_thanks_trigger.sql  登録時にお礼メールの関数を呼ぶトリガー
 │  └─ functions/send-thanks/   お礼メールを送る Edge Function（preview.html でメールの見た目を確認）
 ├─ docs/                   手順書・仕様書
-└─ wrangler.jsonc          Cloudflare Workers の設定（public を公開）
+├─ scripts/                本番に出す前のチェック（npm run check）
+├─ .github/workflows/      チェック・プレビュー・本番デプロイ・リリース（GitHub Actions）
+├─ wrangler.jsonc          Cloudflare Workers の設定（public を公開）
+└─ package.json            wrangler のバージョン固定と npm スクリプト
 ```
 
 ## デプロイの流れ
 
+```
+main に push（public/ などが変わったとき）
+  → チェック（秘密の値・参照ファイル・フォームの接続設定・フォントの文字・wrangler の設定）
+  → 合格したら wrangler deploy で本番へ
+  → 本番の確認（今回のファイルと同じ内容が配信されているか、主要ファイルが開けるか）
+  → タグ（v2026.10.09 の形、同じ日の2回目以降は .2, .3 …）と GitHub リリースを作成
+```
+
 | 対象 | 反映のしかた |
 |---|---|
-| `public/` | `main` に push → Cloudflare Workers Builds が `npx wrangler deploy` → paddleon.app に反映（1分ほど） |
-| `main` 以外のブランチ | push するとプレビュー用URLができる（本番には出ない） |
-| `supabase/*.sql` | ダッシュボードの SQL Editor で実行 |
+| `public/` | `main` に push → 上の流れ（GitHub Actions の **Deploy**）。チェックに落ちたら本番には出ない |
+| `main` 以外のブランチ | push するとプレビュー用URLにアップロード（GitHub Actions の **Preview**、URL はジョブの概要に表示） |
+| `docs/`・`supabase/` だけの変更 | 本番には出さず、タグも打たない |
+| `supabase/*.sql` | ダッシュボードの SQL Editor で実行（自動では反映されない） |
 | `supabase/functions/send-thanks` | ダッシュボードのエディタに貼って Deploy（JWT検証はオフ） |
 
-デプロイの履歴・ログ・巻き戻しは Cloudflare の **Workers & Pages → paddleon-lp → デプロイ** で見られます。
+- 手元でのチェック：`npm ci && pip install -r scripts/requirements.txt && npm run check`
+- 同じ版をもう一度出したいときは、GitHub の **Actions → Deploy → Run workflow**。
+- 巻き戻しは Cloudflare の **Workers & Pages → paddleon-lp → デプロイ** から以前の版を選ぶか、`git revert` して push。
+- 公開した版の一覧と変更内容は GitHub の **Releases**。
 
 ## 使っているサービス
 
