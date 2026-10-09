@@ -6,5 +6,6 @@ cd "$(dirname "$0")/.."
 PY="${PYTHON:-python3}"
 bash scripts/check-secrets.sh
 "$PY" scripts/check-assets.py
+"$PY" scripts/check-trademarks.py
 "$PY" scripts/check-glyphs.py
 npx --no-install wrangler deploy --dry-run > /dev/null && echo "wrangler の設定: OK"

@@ -13,11 +13,12 @@ description: LP（public/）の変更を本番 paddleon.app に出す手順。�
 git status --short && git diff --stat
 npm ci                                            # 初回や package-lock.json が変わったとき
 pip install -r scripts/requirements.txt           # 初回だけ（venv を使うなら PYTHON=<venv>/bin/python npm run check）
-npm run check                                     # 秘密の値・参照ファイル・フォームの接続設定・フォントの文字・wrangler の設定
+npm run check                                     # 秘密の値・参照ファイル・フォームの接続設定・他社のロゴとストア名・フォントの文字・wrangler の設定
 ```
 
 - `index.html` の差分が数千行になっていたら、整形ツールが走っている。`git checkout -- public/index.html` で戻して、必要な変更だけをやり直す。
 - フォントの文字が足りないと言われたら skill `font-subset`。
+- 画像（`og.jpg`、`img/`、アイコン）を変えたときは、Read で開いて他社のロゴや「App Store」などの文字が入っていないか目で確認する（チェックは画像の中身を見られない）。
 - 大きな変更（構成・フォーム・JS）は、ブランチを切って push する。**Preview** ワークフローがプレビューURLにアップロードするので（URL は Actions のジョブ概要）、ユーザーに見てもらってから `main` に入れる。
 
 ## 2. ユーザーに確認してから push
