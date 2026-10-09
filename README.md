@@ -128,7 +128,11 @@ GA4の管理画面 →「データの表示」→「イベント」で `sign_up`
 3. **Edge Functions → Deploy a new function → Via Editor** で、関数名を `send-thanks` にして `supabase/functions/send-thanks/index.ts` の中身を貼り付けて Deploy。
    - 関数の設定で **Verify JWT（JWTの検証）をオフ**にしてください（代わりに WEBHOOK_SECRET で守っています）。
    - CLIを使う場合は `supabase functions deploy send-thanks --no-verify-jwt`。
-4. **Database → Webhooks → Create a new hook**
+4. **関数を呼ぶトリガーを作る**：`supabase/send_thanks_trigger.sql` の `ここにWEBHOOK_SECRET` を2の値に書き換えて、SQL Editor で実行します（実際の公開ではこの方法で設定済み）。
+   - 書き換えた後のファイルは GitHub に push しないでください。
+   - ダッシュボードの Database Webhooks（**Integrations → Database Webhooks**）が使える場合は、下の設定で作っても同じです。どちらか片方だけにしてください。
+
+   **Database Webhooks で作る場合**
    - Table：`waitlist`、Events：**Insert** のみ
    - Type：**Supabase Edge Functions** → `send-thanks`、Method：POST
    - HTTP Headers に `x-webhook-secret` = 2で決めた WEBHOOK_SECRET を追加
