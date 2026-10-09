@@ -1,0 +1,7 @@
+{
+  // このリポジトリでは保存時の自動整形をしない（index.html は手で整えた1ファイル構成のため）
+  "editor.formatOnSave": false,
+  "editor.formatOnType": false,
+  "editor.formatOnPaste": false,
+  "editor.codeActionsOnSave": {}
+}
