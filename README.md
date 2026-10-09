@@ -19,7 +19,7 @@ paddleon-lp/
 │  └─ functions/send-thanks/   お礼メールを送る Edge Function（preview.html でメールの見た目を確認）
 ├─ docs/                   手順書・仕様書
 ├─ scripts/                本番に出す前のチェック（npm run check）
-├─ .github/workflows/      チェック・プレビュー・本番デプロイ・リリース（GitHub Actions）
+├─ .github/workflows/      チェック・プレビュー・本番デプロイ・リリース・Supabase の死活監視（GitHub Actions）
 ├─ src/worker.js           動画（/video/*）の部分配信だけを担う Worker（iPhone の Safari 用）
 ├─ wrangler.jsonc          Cloudflare Workers の設定（public を公開、/video/* は worker を通す）
 └─ package.json            wrangler のバージョン固定と npm スクリプト
@@ -48,6 +48,7 @@ main に push（public/ などが変わったとき）
 - 同じ版をもう一度出したいときは、GitHub の **Actions → Deploy → Run workflow**。
 - 巻き戻しは Cloudflare の **Workers & Pages → paddleon-lp → デプロイ** から以前の版を選ぶか、`git revert` して push。
 - 公開した版の一覧と変更内容は GitHub の **Releases**。
+- 毎日 9:17（日本時間）に **Keepalive** が Supabase の登録の関数を呼び、無料プランの一時停止を防ぎつつ、登録の仕組みが動いているかを確かめます。
 
 ## 使っているサービス
 

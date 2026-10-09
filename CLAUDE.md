@@ -8,6 +8,7 @@
 - デプロイは GitHub Actions（Cloudflare 側の Git 連携は使わない）。`main` に push すると `.github/workflows/deploy.yml` が、チェック（`npm run check`）→ `wrangler deploy`（`wrangler.jsonc` → `assets.directory: ./public`、wrangler は package.json で固定）→ 本番の確認 → タグ `vYYYY.MM.DD[.N]` と GitHub リリース、の順に実行する。**`public/` などが変わった push = 本番公開**。`docs/`・`supabase/` だけの push では動かない。
 - 静的アセットは Range リクエストに対応していないため、`/video/*` だけ `src/worker.js` を通して 206 で部分配信している（iPhone の Safari は 206 が返らないと動画を再生しない）。動画の置き場所や名前を変えるときは `wrangler.jsonc` の `run_worker_first` も合わせる。
 - `main` 以外のブランチの push は `preview.yml` でプレビューURLへ。必要な GitHub Secrets は `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID`。
+- `keepalive.yml` が毎日 Supabase の `join_waitlist` を形式が誤ったメールで呼ぶ（無料プランの7日間の一時停止を防ぐ死活監視。400 "invalid input" が正常）。`join_waitlist` の入力チェックや戻り値を変えるときは、このワークフローも合わせる。
 - タグとリリースは自動で作られるので、手で `git tag` を打たない。
 - `supabase/` は push しても反映されない。SQL は SQL Editor、Edge Function はダッシュボードで手動反映（手順は skill `supabase-change`）。
 - 登録の流れ: フォーム → RPC `join_waitlist`（publishable key、anon は関数の実行のみ）→ `waitlist` 表 → トリガー `send_thanks_after_insert`（pg_net）→ Edge Function `send-thanks` → Resend でお礼メール。Database Webhooks は使っていない（トリガーで代替。両方作ると二重に呼ばれる）。

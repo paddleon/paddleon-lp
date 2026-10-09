@@ -1,0 +1,37 @@
+# 毎日1回、Supabase の登録用の関数 join_waitlist を呼んで、
+#  1. 無料プランの「7日間アクセスがないと一時停止」を防ぐ
+#  2. 登録の仕組みが動いているかを確かめる（止まっていたらこのワークフローが失敗し、GitHub からメールが届く）
+# 形式が誤ったメールアドレスで呼ぶので、行は増えず、お礼メールも送られない（400 "invalid input" が正常）。
+name: Keepalive
+
+on:
+  schedule:
+    - cron: "17 0 * * *" # 毎日 9:17（日本時間）
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: public/index.html
+          sparse-checkout-cone-mode: false
+      - name: 登録の関数を呼ぶ
+        run: |
+          # 接続先は LP と同じ値を使う（ページに埋め込んで公開している publishable key）
+          url=$(grep -oE "const SUPABASE_URL = '[^']+'" public/index.html | cut -d"'" -f2)
+          key=$(grep -oE "const SUPABASE_KEY = '[^']+'" public/index.html | cut -d"'" -f2)
+          for i in 1 2 3; do
+            body=$(curl -s -w '\n%{http_code}' -X POST "$url/rest/v1/rpc/join_waitlist" \
+              -H 'Content-Type: application/json' -H "apikey: $key" -d '{"p_email":"keepalive-not-an-email"}' || true)
+            code=$(echo "$body" | tail -1); msg=$(echo "$body" | head -n -1)
+            echo "HTTP $code $msg"
+            if [ "$code" = 400 ] && echo "$msg" | grep -q 'invalid input'; then echo "OK"; exit 0; fi
+            sleep 20
+          done
+          echo "::error::登録の関数が想定どおりに応答しません。Supabase のプロジェクトが一時停止していないか、ダッシュボードで確認してください。"
+          exit 1
