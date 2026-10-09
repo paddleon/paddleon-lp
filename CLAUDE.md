@@ -31,6 +31,6 @@
 
 ## ユーザーとのやり取り
 
-- 回答は日本語で。ユーザーはフロントエンドが得意なWeb開発者で、フリーランス。
+- 回答は日本語で。
 - ダッシュボード操作（Supabase / Cloudflare / Resend / GA4）は画面の場所が変わりやすい。直接開けるURLを添え、見つからないと言われたらスクリーンショットをもらう。
 - Supabase のプロジェクトは `ejteoudigxgxobzealfl`（URL は `https://ejteoudigxgxobzealfl.supabase.co`）。
