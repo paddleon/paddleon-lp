@@ -38,5 +38,6 @@ gh release list --limit 1                         # 新しいタグとリリー�
 ```
 
 - 失敗したら `gh run view <id> --log-failed` で原因を見る。check で落ちたなら本番は前の版のまま。deploy の「本番の確認」で落ちたなら本番に出た可能性があるので、`curl -s https://paddleon.app/ | shasum -a 256` と `shasum -a 256 public/index.html` を比べて状況を伝える。
+- release ジョブだけが `HTTP 403: Resource not accessible by integration` で落ちたときは、実行中に `.github/workflows/` を変えたコミットが main に入ったのが原因（Actions のトークンは、main と違うワークフローを含むコミットにタグを付けられない）。本番は出ているので、`gh release create <タグ> --target <コミット>` で同じ形式のリリースを手で作る。ワークフローの変更は、デプロイが終わってから push する。
 - `public/` などが変わっていない push（docs や supabase だけ）では Deploy は動かない。それは正常。
 - フォームの送信テストは、本物の行が増えてお礼メールが送られるので、こちらでは行わない。必要ならユーザーに自分のアドレス（Gmail の `+test` など）で試してもらう。
