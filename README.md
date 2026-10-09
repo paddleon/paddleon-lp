@@ -63,4 +63,9 @@ main に push（public/ などが変わったとき）
 
 ## ライセンス
 
-非公開リポジトリです。ライセンスは付けていません（All rights reserved）。写真は各撮影者のライセンス（Unsplash License 等）に、フォントは SIL Open Font License 1.1 に従います。
+ライセンスは付けていません（All rights reserved）。コードは公開していますが、著作権は作者に残り、無断での複製・改変・再配布はできません。
+
+例外として、次の素材はそれぞれのライセンスに従います。
+
+- 写真（`public/img/` の背景写真）：Unsplash License 等、各撮影者のライセンス
+- 日本語フォント（`public/fonts/`）：Zen Kaku Gothic New、SIL Open Font License 1.1（[OFL.txt](public/fonts/OFL.txt)）

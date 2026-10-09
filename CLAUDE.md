@@ -10,8 +10,8 @@
 - タグとリリースは自動で作られるので、手で `git tag` を打たない。
 - `supabase/` は push しても反映されない。SQL は SQL Editor、Edge Function はダッシュボードで手動反映（手順は skill `supabase-change`）。
 - 登録の流れ: フォーム → RPC `join_waitlist`（publishable key、anon は関数の実行のみ）→ `waitlist` 表 → トリガー `send_thanks_after_insert`（pg_net）→ Edge Function `send-thanks` → Resend でお礼メール。Database Webhooks は使っていない（トリガーで代替。両方作ると二重に呼ばれる）。
-- 人向けの資料は `docs/`（operations：運用・仕組み・秘密の値の置き場所／lp-spec：LPの仕様）。README はその入口。リポジトリは非公開で、他の人が clone して立ち上げる前提はないので、ゼロからのセットアップ手順は置かない。
-- 個人名をリポジトリ内の資料（README・docs・CLAUDE.md など）に書かない。
+- 人向けの資料は `docs/`（operations：運用・仕組み・秘密の値の置き場所／lp-spec：LPの仕様）。README はその入口。リポジトリは公開しているが、他の人が clone して立ち上げる前提はないので、ゼロからのセットアップ手順は置かない。
+- 公開リポジトリなので、個人名・個人のメールアドレス・利用者の属性をリポジトリ内（資料・コード・コミットメッセージ）に書かない。コミットは noreply のアドレスで行う（このリポジトリの git config に設定済み）。
 
 ## 守ること
 
