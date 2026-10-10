@@ -31,7 +31,7 @@ iPhone・Androidからのアクセスでは、ブラウザの情報（ユーザ�
 **すでに表を作成済みの場合**は、`waitlist.sql` の「revoke insert, select, update, delete …」から「grant execute on function public.join_waitlist …」までのブロックを SQL Editor で実行してください。実行前に新しいLPを公開すると、登録できなくなります（関数がまだないため）。
 
 ## 「つくっている人」と X
-事前登録の手前に「つくっている人」（サーフィン歴・始めたきっかけ）と X（@nnakamura_tech）へのリンクを置いています。フッターにも X へのリンクがあります。文面は `index.html` の `class="maker"` の部分です。
+事前登録の手前に「つくっている人」（サーフィン歴・始めたきっかけ）と X（@nnakamurap）へのリンクを置いています。フッターにも X へのリンクがあります。文面は `index.html` の `class="maker"` の部分です。
 
 ## 同意の方式
 同意のチェック欄はなく、送信ボタンの下に「登録すると、プライバシーポリシーに同意したものとみなします」と表示する方式です。
