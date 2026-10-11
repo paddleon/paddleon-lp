@@ -16,6 +16,16 @@ export default {
   },
 };
 
+// トップページの応答に付ける Link ヘッダー（RFC 8288）。AI エージェントに、機械向けの資料の場所を知らせる
+const LINKS = [
+  '</.well-known/api-catalog>; rel="api-catalog"',
+  '</llms.txt>; rel="describedby"; type="text/plain"',
+  '</index.md>; rel="alternate"; type="text/markdown"',
+  '</auth.md>; rel="service-doc"; type="text/markdown"',
+  '</sitemap.xml>; rel="sitemap"; type="application/xml"',
+  '</privacy.html>; rel="privacy-policy"',
+].join(', ');
+
 // Accept に text/markdown が（q=0 以外で）含まれているか
 function wantsMarkdown(request) {
   const accept = request.headers.get('Accept') || '';
@@ -36,6 +46,7 @@ async function servePage(request, env) {
       const headers = new Headers(res.headers);
       headers.set('Content-Type', 'text/markdown; charset=utf-8');
       headers.set('Vary', 'Accept');
+      headers.set('Link', LINKS);
       // トークン数の目安（日本語が中心なので、UTF-8 のバイト数 ÷ 4 で見積もる）
       headers.set('x-markdown-tokens', String(Math.ceil(new TextEncoder().encode(text).length / 4)));
       headers.delete('Content-Length');
@@ -47,6 +58,7 @@ async function servePage(request, env) {
   const res = await env.ASSETS.fetch(request);
   const headers = new Headers(res.headers);
   headers.append('Vary', 'Accept'); // HTML と Markdown を別々にキャッシュさせる
+  if (res.status === 200) headers.set('Link', LINKS);
   return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
 }
 

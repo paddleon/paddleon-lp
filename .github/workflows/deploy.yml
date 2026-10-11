@@ -53,7 +53,7 @@ jobs:
           done
           [ "$got" = "$want" ] || { echo "::error::本番の index.html が今回のファイルと一致しません"; exit 1; }
           fail=0
-          for p in / /privacy /robots.txt /sitemap.xml /llms.txt /index.md /og.jpg /favicon.svg /apple-touch-icon.png /video/demo-screen.mp4 /fonts/zkgn-700.woff2; do
+          for p in / /privacy /robots.txt /sitemap.xml /llms.txt /index.md /auth.md /.well-known/api-catalog /og.jpg /favicon.svg /apple-touch-icon.png /video/demo-screen.mp4 /fonts/zkgn-700.woff2; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "https://paddleon.app$p")
             echo "$p $code"; [ "$code" = 200 ] || fail=1
           done
@@ -76,6 +76,11 @@ jobs:
           echo "Accept: text/markdown → $md ／ 指定なし → $html"
           case "$md" in text/markdown*) ;; *) fail=1;; esac
           case "$html" in text/html*) ;; *) fail=1;; esac
+          # AI 向けの案内（Link ヘッダーと API カタログの種類）
+          link=$(curl -s -D - -o /dev/null "https://paddleon.app/?v=$GITHUB_SHA" | grep -i '^link:' | tr -d '\r' || true)
+          echo "${link:-Link ヘッダーなし}"; echo "$link" | grep -q 'rel="api-catalog"' || fail=1
+          cat_type=$(curl -s -o /dev/null -w '%{content_type}' https://paddleon.app/.well-known/api-catalog)
+          echo "api-catalog → $cat_type"; case "$cat_type" in application/linkset+json*) ;; *) fail=1;; esac
           # コンテンツの使い方の宣言（Content-Signal）が応答に付いているか
           sig=$(curl -s -D - -o /dev/null https://paddleon.app/ | grep -i '^content-signal:' | tr -d '\r' || true)
           echo "${sig:-Content-Signal なし}"; [ -n "$sig" ] || fail=1

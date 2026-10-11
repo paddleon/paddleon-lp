@@ -6,7 +6,7 @@
 
 - `public/` が公開物のすべて。ビルドなしの素のHTML/CSS/JS。`index.html` は CSS・JS をインラインで持つ1ファイル構成。
 - デプロイは GitHub Actions（Cloudflare 側の Git 連携は使わない）。`main` に push すると `.github/workflows/deploy.yml` が、チェック（`npm run check`）→ `wrangler deploy`（`wrangler.jsonc` → `assets.directory: ./public`、wrangler は package.json で固定）→ 本番の確認 → タグ `vYYYY.MM.DD[.N]` と GitHub リリース、の順に実行する。**`public/` などが変わった push = 本番公開**。`docs/`・`supabase/` だけの push では動かない。
-- `src/worker.js` を通るのは `wrangler.jsonc` の `run_worker_first` に書いたパスだけ: (1) `/video/*` は 206 で部分配信する（静的アセットは Range に対応しておらず、iPhone の Safari は 206 が返らないと動画を再生しない）。(2) `/` と `/index.html` は、`Accept: text/markdown` のときだけ `index.md` を返す（Markdown Negotiation。それ以外は HTML をそのまま返す）。パスを変えるときは `run_worker_first` も合わせる。Worker を通るリクエストは無料プランの上限（1日10万回）に数えられるので、対象のパスをむやみに増やさない。
+- `src/worker.js` を通るのは `wrangler.jsonc` の `run_worker_first` に書いたパスだけ: (1) `/video/*` は 206 で部分配信する（静的アセットは Range に対応しておらず、iPhone の Safari は 206 が返らないと動画を再生しない）。(2) `/` と `/index.html` は、`Accept: text/markdown` のときだけ `index.md` を返す（Markdown Negotiation。それ以外は HTML をそのまま返す）。どちらの応答にも、AI 向けの資料の場所を示す `Link` ヘッダーを付ける。パスを変えるときは `run_worker_first` も合わせる。Worker を通るリクエストは無料プランの上限（1日10万回）に数えられるので、対象のパスをむやみに増やさない。
 - `main` 以外のブランチの push は `preview.yml` でプレビューURLへ。必要な GitHub Secrets は `CLOUDFLARE_API_TOKEN` と `CLOUDFLARE_ACCOUNT_ID`。
 - `keepalive.yml` が毎日 Supabase の `join_waitlist` を形式が誤ったメールで呼ぶ（無料プランの7日間の一時停止を防ぐ死活監視。400 "invalid input" が正常）。`join_waitlist` の入力チェックや戻り値を変えるときは、このワークフローも合わせる。
 - タグとリリースは自動で作られるので、手で `git tag` を打たない。

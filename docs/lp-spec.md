@@ -48,4 +48,9 @@ ChatGPT・Claude・Perplexity などの AI 検索や回答で、PADDLE ON が正
 - **robots.txt**：検索エンジンに加え、AI の検索・回答用のクローラー（OAI-SearchBot、ChatGPT-User、Claude-SearchBot、Claude-User、PerplexityBot、Perplexity-User）を明示して許可しています。
 - **sitemap.xml**：各ページの最終更新日（`lastmod`）を入れています。
 
+- **Link ヘッダー**：トップページの応答に、AI 向けの資料の場所（API カタログ、llms.txt、Markdown 版、auth.md、サイトマップ、プライバシーポリシー）を `Link` ヘッダーで付けています（`src/worker.js` の `LINKS`）。
+- **API カタログ**（`/.well-known/api-catalog`、RFC 9727）：公開している API はないので、中身は空（`{"linkset": []}`）です。登録フォームが内部で呼ぶ Supabase の関数は、AI による自動の登録を招いて「100名で開発に着手」の検証の数字が濁るため、あえて載せていません。
+- **auth.md**（`/auth.md`）：「ログイン・アカウント・API キーはなく、すべて認証なしで読める。事前登録は本人がフォームから行う」という事実だけを書いています。存在しない認証の仕組みは書きません。
+- Cloudflare の診断（Agent Readiness）は、API やログインを持つサービス向けの項目を含みます。当てはまる中身がない項目は、事実を書いたうえで未完了のままで構いません。アプリ本体に API やログインができたら、API カタログと auth.md を更新します。
+
 よくある質問・料金・対応OS・開発状況を変えるときは、ページ本文・構造化データ・llms.txt・index.md を合わせて直します（llms.txt と index.md は同じ中身。ずれると `npm run check` が知らせます）。
