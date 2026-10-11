@@ -44,51 +44,50 @@ jobs:
         run: npx wrangler deploy --message "${GITHUB_SHA::7}"
       - name: 本番の確認
         run: |
-          # 今回のファイルと同じ内容が配信されるまで待つ（最大2分）
-          want=$(sha256sum public/index.html | cut -d' ' -f1)
-          for i in $(seq 1 24); do
-            got=$(curl -fsS https://paddleon.app/ | sha256sum | cut -d' ' -f1 || true)
-            [ "$got" = "$want" ] && break
-            sleep 5
-          done
-          [ "$got" = "$want" ] || { echo "::error::本番の index.html が今回のファイルと一致しません"; exit 1; }
-          fail=0
-          for p in / /privacy /robots.txt /sitemap.xml /llms.txt /index.md /auth.md /.well-known/api-catalog /og.jpg /favicon.svg /apple-touch-icon.png /video/demo-screen.mp4 /fonts/zkgn-700.woff2; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "https://paddleon.app$p")
-            echo "$p $code"; [ "$code" = 200 ] || fail=1
-          done
-          # iPhone の Safari は動画を部分配信（206）でしか再生しない。Worker の反映は HTML より遅れることがあるので最大2分待つ
-          for f in demo-screen.mp4 demo-screen.webm; do
-            for i in $(seq 1 24); do
-              code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Range: bytes=0-1' "https://paddleon.app/video/$f?v=$GITHUB_SHA")
-              [ "$code" = 206 ] && break
-              sleep 5
+          # 新しい版が Cloudflare に行き渡るまで少し時間がかかるので、全部通るまで最大2分くり返す
+          verify() {
+            local fail=0 code p f
+            # 今回のファイルと同じ内容が配信されているか
+            for f in index.html:/ privacy.html:/privacy llms.txt:/llms.txt index.md:/index.md auth.md:/auth.md .well-known/api-catalog:/.well-known/api-catalog; do
+              want=$(sha256sum "public/${f%%:*}" | cut -d' ' -f1)
+              got=$(curl -fsS "https://paddleon.app${f##*:}" | sha256sum | cut -d' ' -f1 || true)
+              [ "$got" = "$want" ] && echo "${f##*:} 内容一致" || { echo "${f##*:} 内容が今回のファイルと違います"; fail=1; }
             done
-            echo "/video/$f Range $code（206 が正しい）"; [ "$code" = 206 ] || fail=1
+            for p in /robots.txt /sitemap.xml /og.jpg /favicon.svg /apple-touch-icon.png /video/demo-screen.mp4 /fonts/zkgn-700.woff2; do
+              code=$(curl -s -o /dev/null -w '%{http_code}' "https://paddleon.app$p")
+              echo "$p $code"; [ "$code" = 200 ] || fail=1
+            done
+            # iPhone の Safari は動画を部分配信（206）でしか再生しない
+            for f in demo-screen.mp4 demo-screen.webm; do
+              code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Range: bytes=0-1' "https://paddleon.app/video/$f")
+              echo "/video/$f Range ${code}（206 が正しい）"; [ "$code" = 206 ] || fail=1
+            done
+            # AI が Accept: text/markdown で要求したら Markdown、指定がなければ HTML が返るか
+            md=$(curl -s -o /dev/null -w '%{content_type}' -H 'Accept: text/markdown' https://paddleon.app/)
+            html=$(curl -s -o /dev/null -w '%{content_type}' https://paddleon.app/)
+            echo "Accept: text/markdown → $md ／ 指定なし → $html"
+            case "$md" in text/markdown*) ;; *) fail=1;; esac
+            case "$html" in text/html*) ;; *) fail=1;; esac
+            # AI 向けの案内（Link ヘッダーと API カタログの種類）と、コンテンツの使い方の宣言（Content-Signal）
+            head=$(curl -s -D - -o /dev/null https://paddleon.app/ | tr -d '\r')
+            echo "$head" | grep -i '^link:' | grep -q 'rel="api-catalog"' && echo "Link ヘッダーあり" || { echo "Link ヘッダーなし"; fail=1; }
+            echo "$head" | grep -qi '^content-signal:' && echo "Content-Signal あり" || { echo "Content-Signal なし"; fail=1; }
+            cat_type=$(curl -s -o /dev/null -w '%{content_type}' https://paddleon.app/.well-known/api-catalog)
+            echo "api-catalog → $cat_type"; case "$cat_type" in application/linkset+json*) ;; *) fail=1;; esac
+            # 公開してはいけないファイル
+            for p in /README.md /wrangler.jsonc /package.json /src/worker.js /_headers; do
+              code=$(curl -s -o /dev/null -w '%{http_code}' "https://paddleon.app$p")
+              echo "$p ${code}（404 が正しい）"; [ "$code" = 404 ] || fail=1
+            done
+            return $fail
+          }
+          for i in $(seq 1 12); do
+            if verify > result.txt 2>&1; then cat result.txt; echo "本番の確認: OK（${i}回目）"; exit 0; fi
+            sleep 10
           done
-          # AI が Accept: text/markdown で要求したら Markdown、指定がなければ HTML が返るか（Worker の反映を最大2分待つ）
-          for i in $(seq 1 24); do
-            md=$(curl -s -o /dev/null -w '%{content_type}' -H 'Accept: text/markdown' "https://paddleon.app/?v=$GITHUB_SHA")
-            case "$md" in text/markdown*) break;; esac
-            sleep 5
-          done
-          html=$(curl -s -o /dev/null -w '%{content_type}' "https://paddleon.app/?v=$GITHUB_SHA")
-          echo "Accept: text/markdown → $md ／ 指定なし → $html"
-          case "$md" in text/markdown*) ;; *) fail=1;; esac
-          case "$html" in text/html*) ;; *) fail=1;; esac
-          # AI 向けの案内（Link ヘッダーと API カタログの種類）
-          link=$(curl -s -D - -o /dev/null "https://paddleon.app/?v=$GITHUB_SHA" | grep -i '^link:' | tr -d '\r' || true)
-          echo "${link:-Link ヘッダーなし}"; echo "$link" | grep -q 'rel="api-catalog"' || fail=1
-          cat_type=$(curl -s -o /dev/null -w '%{content_type}' https://paddleon.app/.well-known/api-catalog)
-          echo "api-catalog → $cat_type"; case "$cat_type" in application/linkset+json*) ;; *) fail=1;; esac
-          # コンテンツの使い方の宣言（Content-Signal）が応答に付いているか
-          sig=$(curl -s -D - -o /dev/null https://paddleon.app/ | grep -i '^content-signal:' | tr -d '\r' || true)
-          echo "${sig:-Content-Signal なし}"; [ -n "$sig" ] || fail=1
-          for p in /README.md /wrangler.jsonc /package.json /src/worker.js /_headers; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "https://paddleon.app$p")
-            echo "$p $code（404 が正しい）"; [ "$code" = 404 ] || fail=1
-          done
-          exit $fail
+          cat result.txt
+          echo "::error::本番の確認に失敗しました"
+          exit 1
 
   release:
     needs: deploy
