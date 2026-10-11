@@ -11,7 +11,7 @@ flowchart LR
   subgraph CF["Cloudflare"]
     dns["paddleon.app<br/>DNS・HTTPS"]
     subgraph W["Worker: paddleon-lp"]
-      assets["静的アセット<br/>public/ の HTML・画像・フォント<br/>llms.txt・robots.txt"]
+      assets["静的アセット<br/>public/ の HTML・画像・フォント<br/>llms.txt・index.md・robots.txt"]
       worker["src/worker.js<br/>/video/* の部分配信（206）"]
     end
     mailfwd["Email Routing<br/>support@paddleon.app を転送"]

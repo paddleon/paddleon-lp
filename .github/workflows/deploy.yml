@@ -53,7 +53,7 @@ jobs:
           done
           [ "$got" = "$want" ] || { echo "::error::本番の index.html が今回のファイルと一致しません"; exit 1; }
           fail=0
-          for p in / /privacy /robots.txt /sitemap.xml /llms.txt /og.jpg /favicon.svg /apple-touch-icon.png /video/demo-screen.mp4 /fonts/zkgn-700.woff2; do
+          for p in / /privacy /robots.txt /sitemap.xml /llms.txt /index.md /og.jpg /favicon.svg /apple-touch-icon.png /video/demo-screen.mp4 /fonts/zkgn-700.woff2; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "https://paddleon.app$p")
             echo "$p $code"; [ "$code" = 200 ] || fail=1
           done
@@ -66,6 +66,9 @@ jobs:
             done
             echo "/video/$f Range $code（206 が正しい）"; [ "$code" = 206 ] || fail=1
           done
+          # コンテンツの使い方の宣言（Content-Signal）が応答に付いているか
+          sig=$(curl -s -D - -o /dev/null https://paddleon.app/ | grep -i '^content-signal:' | tr -d '\r' || true)
+          echo "${sig:-Content-Signal なし}"; [ -n "$sig" ] || fail=1
           for p in /README.md /wrangler.jsonc /package.json /src/worker.js /_headers; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "https://paddleon.app$p")
             echo "$p $code（404 が正しい）"; [ "$code" = 404 ] || fail=1

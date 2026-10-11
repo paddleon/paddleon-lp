@@ -1,7 +1,12 @@
 # PADDLE ON（https://paddleon.app/）
 # 検索エンジンと、AIの検索・回答機能（ChatGPT検索、Claude、Perplexity、Gemini など）からの読み込みを許可しています。
+# Content-Signal：コンテンツの使い方の宣言（https://contentsignals.org/）
+#   search=yes   検索結果への掲載を許可
+#   ai-input=yes AIの回答の根拠として使うことを許可
+#   ai-train=yes AIの学習に使うことを許可
 
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 # AI検索・回答用のクローラー（明示）
@@ -11,6 +16,7 @@ User-agent: Claude-SearchBot
 User-agent: Claude-User
 User-agent: PerplexityBot
 User-agent: Perplexity-User
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 Sitemap: https://paddleon.app/sitemap.xml

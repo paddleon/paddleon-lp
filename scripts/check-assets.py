@@ -41,6 +41,11 @@ if not url or not re.fullmatch(r"https://[a-z0-9]+\.supabase\.co", url.group(1))
 if not key or not key.group(1).startswith("sb_publishable_"):
     errors.append("index.html: SUPABASE_KEY は publishable key（sb_publishable_...）にしてください")
 
+# index.md（Markdown 版）は llms.txt と同じ中身を保つ
+llms, md = PUBLIC / "llms.txt", PUBLIC / "index.md"
+if llms.exists() and md.exists() and llms.read_bytes() != md.read_bytes():
+    errors.append("public/index.md と public/llms.txt の中身が違います。片方を直したら、もう片方にもコピーしてください")
+
 if errors:
     print("\n".join(errors))
     sys.exit(1)

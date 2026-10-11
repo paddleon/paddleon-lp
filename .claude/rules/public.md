@@ -15,6 +15,6 @@ paths:
 - 動きは `prefers-reduced-motion` を尊重し、JS が無効でも内容が読めるようにしておく（既存の作りに合わせる）。
 - 他社のロゴ（Apple のりんごマークなど）と、配信前のストア名（App Store / Google Play）を使わない。対応機種は「iPhone版」と文字で書く（CLAUDE.md「商標とロゴ」）。画像を差し替えたら、ロゴが入っていないか目で確認する。
 - 外部から受け取ったLP一式（zip やフォルダ）は、そのまま上書きしない。`diff` で今回の変更点だけを取り込む（古い状態から作られていて、直した箇所が戻ることがある）。
-- LLMO（AI検索向け）: サービスの説明は「ページ本文」「`index.html` の構造化データ（JSON-LD の MobileApplication と FAQPage）」「`llms.txt`」の3か所にある。よくある質問・料金・対応OS・開発状況・X のアカウントなどを変えたら3か所とも合わせる。構造化データの FAQ はページに表示している文と一字一句同じにする（違うと検索エンジンの規約違反になる）。ページを更新したら `sitemap.xml` の `lastmod` も更新する。
-- `_headers` は Cloudflare の配信設定（`.txt` を UTF-8 で返す）。ファイル自体は公開されない。
+- LLMO（AI検索向け）: サービスの説明は「ページ本文」「`index.html` の構造化データ（JSON-LD の MobileApplication と FAQPage）」「`llms.txt`」「`index.md`」にある。よくある質問・料金・対応OS・開発状況・X のアカウントなどを変えたら全部合わせる。`index.md` は `llms.txt` のコピー（`cp public/llms.txt public/index.md`。ずれるとチェックで落ちる）。構造化データの FAQ はページに表示している文と一字一句同じにする（違うと検索エンジンの規約違反になる）。ページを更新したら `sitemap.xml` の `lastmod` も更新する。
+- `_headers` は Cloudflare の配信設定（`.txt`・`.md` の文字コードと、全応答の `Content-Signal`）。ファイル自体は公開されない。Content-Signal（検索・AIの回答・AIの学習の許可）は `robots.txt` にも同じ値を書いてあるので、変えるときは2か所とも変える。許可の範囲を変えるのは運営の方針なので、ユーザーに確認する。
 - 仕様の詳細は `docs/lp-spec.md`。仕様を変えたらそちらも更新する。

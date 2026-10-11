@@ -18,12 +18,15 @@ PUBLIC = ROOT / "public"
 
 def page_chars(path: Path) -> set[str]:
     src = path.read_text(encoding="utf-8")
-    # style / script の中身とタグを除き、本文と属性値（alt・aria-label・placeholder など）の文字を集める
+    # style / script の中身とタグを除き、本文と、画面に表示される属性値（alt・placeholder・value）の文字を集める。
+    # title（ツールチップ）・aria-label・meta の content は、ページのフォントでは描画されないので対象にしない
     body = re.sub(r"<(style|script)\b[^>]*>.*?</\1>", " ", src, flags=re.S | re.I)
-    attrs = " ".join(re.findall(r'(?:alt|title|aria-label|placeholder|content|value)="([^"]*)"', body))
+    attrs = " ".join(re.findall(r'\s(?:alt|placeholder|value)="([^"]*)"', body))
     text = re.sub(r"<[^>]+>", " ", body) + " " + attrs
-    # JS で画面に出す日本語（エラーメッセージやボタン文言）も対象にする
-    js_strings = " ".join(re.findall(r"""['"`]([^'"`\n]*[　-ヿ一-鿿＀-￯][^'"`\n]*)['"`]""", src))
+    # JS で画面に出す日本語（エラーメッセージやボタン文言）も対象にする。
+    # 見るのは <script> の中だけ（HTML の属性値を拾わない）。構造化データ（application/ld+json）は画面に出ないので除く
+    scripts = " ".join(re.findall(r"<script(?![^>]*application/ld\+json)[^>]*>(.*?)</script>", src, flags=re.S | re.I))
+    js_strings = " ".join(re.findall(r"""['"`]([^'"`\n]*[　-ヿ一-鿿＀-￯][^'"`\n]*)['"`]""", scripts))
     return set(html.unescape(text + " " + js_strings))
 
 

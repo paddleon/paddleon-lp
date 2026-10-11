@@ -42,7 +42,9 @@ ChatGPT・Claude・Perplexity などの AI 検索や回答で、PADDLE ON が正
 
 - **構造化データ**：`index.html` の `<head>` 末尾にある JSON-LD（WebSite／MobileApplication／FAQPage）。FAQ はページの「よくある質問」と一字一句同じ文です。
 - **llms.txt**：AI 向けのサービス概要（`public/llms.txt`）。概要・機能・SNSとの違い・リンクを Markdown で書いています。
+- **Markdown 版（index.md）**：中身は llms.txt と同じです。`index.html` の `<head>` から `<link rel="alternate" type="text/markdown">` で案内しています。Cloudflare の「Markdown for Agents」（AI が Markdown を求めたときに自動で変換して返す機能）は有料プラン向けなので、その代わりです。Cloudflare の自動チェックで「未対応」と表示されても問題ありません。
+- **Content Signals**：コンテンツの使い方の宣言（https://contentsignals.org/）。検索への掲載（`search`）、AI の回答への利用（`ai-input`）、AI の学習（`ai-train`）を、すべて許可（`yes`）にしています。書いてある場所は `robots.txt` と、全ページの応答ヘッダー（`_headers`）の2か所です。AI の学習を断りたくなったら、2か所の `ai-train=yes` を `no` に変えます。
 - **robots.txt**：検索エンジンに加え、AI の検索・回答用のクローラー（OAI-SearchBot、ChatGPT-User、Claude-SearchBot、Claude-User、PerplexityBot、Perplexity-User）を明示して許可しています。
 - **sitemap.xml**：各ページの最終更新日（`lastmod`）を入れています。
 
-よくある質問・料金・対応OS・開発状況を変えるときは、ページ本文・構造化データ・llms.txt の3か所を合わせて直します。
+よくある質問・料金・対応OS・開発状況を変えるときは、ページ本文・構造化データ・llms.txt・index.md を合わせて直します（llms.txt と index.md は同じ中身。ずれると `npm run check` が知らせます）。

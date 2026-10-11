@@ -28,7 +28,7 @@ RULES = [
 
 errors: list[str] = []
 for path in sorted(PUBLIC.rglob("*")):
-    if path.suffix not in {".html", ".svg", ".css", ".js", ".txt", ".xml"}:
+    if path.suffix not in {".html", ".svg", ".css", ".js", ".txt", ".xml", ".md"}:
         continue
     for no, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
         for label, pattern in RULES:
