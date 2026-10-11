@@ -41,6 +41,6 @@
 
 ## ユーザーとのやり取り
 
-- 回答は日本語で。
+- やり取りはすべて日本語で（最終の回答だけでなく、作業途中の報告、質問の選択肢、コミットメッセージも）。英語にするのは、GitHub サポートなど相手が英語の文面だけ。
 - ダッシュボード操作（Supabase / Cloudflare / Resend / GA4）は画面の場所が変わりやすい。直接開けるURLを添え、見つからないと言われたらスクリーンショットをもらう。
 - Supabase のプロジェクトは `ejteoudigxgxobzealfl`（URL は `https://ejteoudigxgxobzealfl.supabase.co`）。
