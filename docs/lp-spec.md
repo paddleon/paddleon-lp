@@ -35,3 +35,14 @@ iPhone・Androidからのアクセスでは、ブラウザの情報（ユーザ�
 
 ## 同意の方式
 同意のチェック欄はなく、送信ボタンの下に「登録すると、プライバシーポリシーに同意したものとみなします」と表示する方式です。
+
+## AI検索向けの情報（LLMO）
+
+ChatGPT・Claude・Perplexity などの AI 検索や回答で、PADDLE ON が正しく紹介されるための情報です。
+
+- **構造化データ**：`index.html` の `<head>` 末尾にある JSON-LD（WebSite／MobileApplication／FAQPage）。FAQ はページの「よくある質問」と一字一句同じ文です。
+- **llms.txt**：AI 向けのサービス概要（`public/llms.txt`）。概要・機能・SNSとの違い・リンクを Markdown で書いています。
+- **robots.txt**：検索エンジンに加え、AI の検索・回答用のクローラー（OAI-SearchBot、ChatGPT-User、Claude-SearchBot、Claude-User、PerplexityBot、Perplexity-User）を明示して許可しています。
+- **sitemap.xml**：各ページの最終更新日（`lastmod`）を入れています。
+
+よくある質問・料金・対応OS・開発状況を変えるときは、ページ本文・構造化データ・llms.txt の3か所を合わせて直します。
