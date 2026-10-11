@@ -61,6 +61,7 @@ main に push（public/ などが変わったとき）
 
 ## ドキュメント
 
+- [docs/architecture.md](docs/architecture.md) … システム構成図（全体の構成、登録からお礼メールまで、デプロイと監視、秘密の値の置き場所）
 - [docs/operations.md](docs/operations.md) … 登録者の見方・集計、アクセス解析、お礼メールの仕組み、秘密の値の置き場所、運用の注意
 - [docs/lp-spec.md](docs/lp-spec.md) … LPの動き・フォーム・文言の仕様
 
