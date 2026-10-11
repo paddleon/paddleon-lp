@@ -66,6 +66,16 @@ jobs:
             done
             echo "/video/$f Range $code（206 が正しい）"; [ "$code" = 206 ] || fail=1
           done
+          # AI が Accept: text/markdown で要求したら Markdown、指定がなければ HTML が返るか（Worker の反映を最大2分待つ）
+          for i in $(seq 1 24); do
+            md=$(curl -s -o /dev/null -w '%{content_type}' -H 'Accept: text/markdown' "https://paddleon.app/?v=$GITHUB_SHA")
+            case "$md" in text/markdown*) break;; esac
+            sleep 5
+          done
+          html=$(curl -s -o /dev/null -w '%{content_type}' "https://paddleon.app/?v=$GITHUB_SHA")
+          echo "Accept: text/markdown → $md ／ 指定なし → $html"
+          case "$md" in text/markdown*) ;; *) fail=1;; esac
+          case "$html" in text/html*) ;; *) fail=1;; esac
           # コンテンツの使い方の宣言（Content-Signal）が応答に付いているか
           sig=$(curl -s -D - -o /dev/null https://paddleon.app/ | grep -i '^content-signal:' | tr -d '\r' || true)
           echo "${sig:-Content-Signal なし}"; [ -n "$sig" ] || fail=1

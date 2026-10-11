@@ -1,6 +1,8 @@
 {
   // Cloudflare Workers の設定。public フォルダをそのまま静的サイトとして公開する（ビルドなし）。
-  // /video/* だけ src/worker.js を通して、iPhone の Safari に必要な部分配信（Range）に対応する。
+  // 次のパスだけ src/worker.js を通す（それ以外は静的アセットとしてそのまま配信）:
+  //   /, /index.html … AI が Accept: text/markdown で要求したら Markdown 版（index.md）を返す
+  //   /video/*       … iPhone の Safari に必要な部分配信（Range）に対応する
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "paddleon-lp",
   "main": "src/worker.js",
@@ -8,6 +10,6 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": ["/video/*"]
+    "run_worker_first": ["/", "/index.html", "/video/*"]
   }
 }

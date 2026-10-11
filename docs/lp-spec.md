@@ -42,7 +42,8 @@ ChatGPT・Claude・Perplexity などの AI 検索や回答で、PADDLE ON が正
 
 - **構造化データ**：`index.html` の `<head>` 末尾にある JSON-LD（WebSite／MobileApplication／FAQPage）。FAQ はページの「よくある質問」と一字一句同じ文です。
 - **llms.txt**：AI 向けのサービス概要（`public/llms.txt`）。概要・機能・SNSとの違い・リンクを Markdown で書いています。
-- **Markdown 版（index.md）**：中身は llms.txt と同じです。`index.html` の `<head>` から `<link rel="alternate" type="text/markdown">` で案内しています。Cloudflare の「Markdown for Agents」（AI が Markdown を求めたときに自動で変換して返す機能）は有料プラン向けなので、その代わりです。Cloudflare の自動チェックで「未対応」と表示されても問題ありません。
+- **Markdown 版（index.md）**：中身は llms.txt と同じです。`index.html` の `<head>` から `<link rel="alternate" type="text/markdown">` で案内しています。
+- **Markdown Negotiation**：AI エージェントがトップページ（`/`）を `Accept: text/markdown` で要求すると、HTML の代わりに index.md の中身を返します（`Content-Type: text/markdown`、`Vary: Accept`、トークン数の目安 `x-markdown-tokens` 付き）。ブラウザなど、Markdown を求めないリクエストには、これまでどおり HTML を返します。Cloudflare の有料機能「Markdown for Agents」と同じ動きを、`src/worker.js` で自前で行っています。確認は `curl -H "Accept: text/markdown" https://paddleon.app/`。プライバシーポリシーは対象外です（HTML のみ）。
 - **Content Signals**：コンテンツの使い方の宣言（https://contentsignals.org/）。検索への掲載（`search`）、AI の回答への利用（`ai-input`）、AI の学習（`ai-train`）を、すべて許可（`yes`）にしています。書いてある場所は `robots.txt` と、全ページの応答ヘッダー（`_headers`）の2か所です。AI の学習を断りたくなったら、2か所の `ai-train=yes` を `no` に変えます。
 - **robots.txt**：検索エンジンに加え、AI の検索・回答用のクローラー（OAI-SearchBot、ChatGPT-User、Claude-SearchBot、Claude-User、PerplexityBot、Perplexity-User）を明示して許可しています。
 - **sitemap.xml**：各ページの最終更新日（`lastmod`）を入れています。

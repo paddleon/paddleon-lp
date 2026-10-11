@@ -20,8 +20,8 @@ paddleon-lp/
 ├─ docs/                   手順書・仕様書
 ├─ scripts/                本番に出す前のチェック（npm run check）
 ├─ .github/workflows/      チェック・プレビュー・本番デプロイ・リリース・Supabase の死活監視（GitHub Actions）
-├─ src/worker.js           動画（/video/*）の部分配信だけを担う Worker（iPhone の Safari 用）
-├─ wrangler.jsonc          Cloudflare Workers の設定（public を公開、/video/* は worker を通す）
+├─ src/worker.js           Worker（動画の部分配信と、AI 向けの Markdown の出し分け）
+├─ wrangler.jsonc          Cloudflare Workers の設定（public を公開、/ と /video/* は worker を通す）
 └─ package.json            wrangler のバージョン固定と npm スクリプト
 ```
 

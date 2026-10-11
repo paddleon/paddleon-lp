@@ -12,7 +12,7 @@ flowchart LR
     dns["paddleon.app<br/>DNS・HTTPS"]
     subgraph W["Worker: paddleon-lp"]
       assets["静的アセット<br/>public/ の HTML・画像・フォント<br/>llms.txt・index.md・robots.txt"]
-      worker["src/worker.js<br/>/video/* の部分配信（206）"]
+      worker["src/worker.js<br/>/video/* の部分配信（206）<br/>/ は Accept: text/markdown なら index.md"]
     end
     mailfwd["Email Routing<br/>support@paddleon.app を転送"]
   end
@@ -49,7 +49,7 @@ flowchart LR
 | 部分 | 役割 | 場所 |
 |---|---|---|
 | 静的アセット | LP 本体。ビルドなしでそのまま配信 | `public/`、`wrangler.jsonc` |
-| src/worker.js | 動画だけ部分配信（iPhone の Safari 用）。ほかのファイルは通らない | `src/worker.js` |
+| src/worker.js | 動画の部分配信（iPhone の Safari 用）と、トップページの Markdown の出し分け（AI エージェント用）。ほかのファイルは通らない | `src/worker.js` |
 | join_waitlist | 登録の受け付け。新規でも登録済みでも同じ結果を返す | `supabase/waitlist.sql` |
 | send_thanks_after_insert | 登録されたらお礼メールの関数を呼ぶ | `supabase/send_thanks_trigger.sql` |
 | send-thanks | Resend でお礼メールを送る（1時間30通まで） | `supabase/functions/send-thanks/` |
