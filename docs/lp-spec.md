@@ -38,7 +38,7 @@ iPhone・Androidからのアクセスでは、ブラウザの情報（ユーザ�
 
 ## キャッチコピーと OGP 画像
 
-- キャッチコピー「Paddle on. Ride better.」のフォントは Square Peg（Google Fonts）。字が小さく細いフォントなので、文字サイズはほかの手書き風フォントより大きめにしています（`.tagline`）。
+- キャッチコピー「Paddle on. Ride better.」のフォントは Caveat の太さ600（Google Fonts）。LP は `index.html` の `.tagline`、OGP 画像は `og/og.html` の `.tagline` で指定しています。手書き風のフォントは種類によって字の見た目の大きさがかなり違うので、フォントを変えるときは文字サイズも合わせて調整します。
 - OGP 画像（`public/og.jpg`、1200×630）は `og/og.html` から書き出します。見出し・キャッチコピー・「事前登録受付中（無料）」・アプリのホーム画面・「※画面は試作中のデザインです」の注記を載せています。
 
 ## AI検索向けの情報（LLMO）
