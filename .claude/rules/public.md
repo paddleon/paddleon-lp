@@ -11,6 +11,7 @@ paths:
 - フォームの値は `join_waitlist` の引数と、`waitlist` 表の check 制約（`supabase/waitlist.sql`）に合わせる。選択肢を増やすときは SQL 側も変える必要がある。
 - GA4 のイベント名（`sign_up` / `cta_click` + `cta_location` / `form_start_signup`）は解析で使っているので変えない。新しい CTA には `cta_location` を付ける。
 - 文言を変えたら `python3 scripts/check-glyphs.py` を実行する。足りない文字が出たら skill `font-subset`。
+- `og.jpg` は直接加工しない。`og/og.html` を直して `bash og/build.sh` で書き出し、Read で開いて見た目（重なり・他社のロゴ・「試作中」の注記）を確認する。LP のキャッチコピーのフォントや見出しの文言を変えたら、`og/og.html` も合わせる。
 - 画像は WebP（写真）/ JPEG（アプリ画面）で軽くする。差し替えるときはファイル名と縦横比を保つ（ヒーローは人の位置に合わせて CSS で配置している）。
 - 動きは `prefers-reduced-motion` を尊重し、JS が無効でも内容が読めるようにしておく（既存の作りに合わせる）。
 - 他社のロゴ（Apple のりんごマークなど）と、配信前のストア名（App Store / Google Play）を使わない。対応機種は「iPhone版」と文字で書く（CLAUDE.md「商標とロゴ」）。画像を差し替えたら、ロゴが入っていないか目で確認する。

@@ -24,11 +24,12 @@ GA4の管理画面 →「データの表示」→「イベント」で `sign_up`
 ## 注意
 
 - **日本語フォント**：`public/fonts/` の Zen Kaku Gothic New は、ページ内の文字だけに絞って軽くしています（1ファイル約70KB）。文章を書き換えて新しい漢字を使うと、その文字だけ別の書体で表示されます。`npm run check` が足りない文字を知らせるので、出たらフォントを作り直します。
-- **英字フォント**：Inter・Montserrat・Splash は Google Fonts から読み込んでいます（プライバシーポリシーの「4. 外部サービスの利用」に記載済み）。
+- **英字フォント**：Inter・Montserrat・Square Peg は Google Fonts から読み込んでいます（プライバシーポリシーの「4. 外部サービスの利用」に記載済み）。
 
 - **Supabase の無料プラン**は、7日間データベースへのアクセスが少ないとプロジェクトが一時停止されます（停止の約1週間前と停止時に、オーナーにメールが届きます）。LPを見られるだけでは Supabase にアクセスしないので、登録が1週間なければ止まり、フォームが送れなくなります。止まったらダッシュボードから再開できます（停止から90日以内）。
   - 対策として、GitHub Actions の **Keepalive**（`.github/workflows/keepalive.yml`）が毎日 9:17（日本時間）に登録の関数を形式が誤ったメールアドレスで呼んでいます（行は増えず、お礼メールも送られません）。応答がおかしければワークフローが失敗し、GitHub からメールが届きます。
   - 公開リポジトリの定期実行は、60日間コミットがないと GitHub が自動で止めます（事前にメールが届きます）。止まったら **Actions → Keepalive → Enable workflow** で再開します。
+- **OGP 画像**：`public/og.jpg` は、`og/og.html`（1200×630 のページ）を Chrome で撮影して作っています。文言・フォント・アプリの画面を変えるときは、`og/og.html` を直して `bash og/build.sh` を実行します（Chrome と Python の Pillow が必要）。X や Facebook は古い画像をしばらく保存するので、シェアするときは URL に `?v=2` などを付けるか、Facebook のシェアデバッガーで更新します。
 - **写真**：背景写真は軽量な WebP 形式です。ヒーローがPC用 `img/hero-bg.webp`／スマホ用 `img/hero-bg-sp.webp`、使い方スライダーが `img/how-bg.webp`、ABOUTが `img/about-bg.webp`、最後のセクションが `img/closing-bg.webp`。ヒーローは人の位置に合わせてCSSで配置しているので、差し替える場合は位置の調整が必要です。
 - フォームにはスパム対策として、人には見えない入力欄（ハニーポット）を入れてあります。スパムが増えてきたら Cloudflare Turnstile の追加を検討してください。
 

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>PADDLE ON の OGP 画像（1200×630）</title>
+<!--
+  OGP 画像（public/og.jpg）の元になるページ。og/build.sh が Chrome でこのページを 1200×630 で撮影して og.jpg を作る。
+  文言・フォント・アプリ画面を変えるときは、ここを直して build.sh を実行する。
+  他社のロゴ（Apple のマークなど）やストア名は入れない（CLAUDE.md「商標とロゴ」）。
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Square+Peg&display=block" rel="stylesheet">
+<style>
+@font-face{font-family:'Zen Kaku Gothic New';font-weight:700;src:url(../public/fonts/zkgn-700.woff2) format('woff2')}
+@font-face{font-family:'Zen Kaku Gothic New';font-weight:900;src:url(../public/fonts/zkgn-900.woff2) format('woff2')}
+*{box-sizing:border-box}
+html,body{margin:0;width:1200px;height:630px;overflow:hidden}
+body{position:relative;font-family:'Zen Kaku Gothic New',sans-serif;color:#0A0F1A;
+  background:#F3D9C6 url(../public/img/hero-bg.webp) no-repeat;background-size:var(--bg-w) auto;background-position:var(--bg-x) var(--bg-y);
+  --bg-w:2330px;--bg-x:-480px;--bg-y:-180px}
+.logo{position:absolute;left:90px;top:52px;display:flex;align-items:center;height:43px;padding:0 14px;border-radius:10px;background:#070E1A}
+h1{position:absolute;left:90px;top:118px;margin:0;font-weight:900;font-size:90px;line-height:1.25;letter-spacing:.01em;text-indent:-.5em;padding-left:.5em;margin-left:-.5em;white-space:nowrap}
+.tagline{position:absolute;left:92px;top:352px;font-family:'Square Peg',cursive;font-size:84px;line-height:1;white-space:nowrap;transform:rotate(-3deg);transform-origin:left center}
+.cta{position:absolute;left:90px;top:498px;display:flex;align-items:center;justify-content:center;width:404px;height:68px;border-radius:16px;background:#FFD23F;font-weight:900;font-size:27px;letter-spacing:.02em}
+/* アプリの画面（LP の .iphone と同じ作り） */
+.iphone{--w:262px;position:absolute;left:878px;top:58px;width:var(--w);padding:3px;border-radius:calc(var(--w)*.19);background:linear-gradient(145deg,#5A5F69 0%,#2A2D33 22%,#1B1D21 50%,#2A2D33 78%,#50545D 100%);box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 1px rgba(0,0,0,.6);transform:rotate(4deg)}
+.iphone .bz{padding:calc(var(--w)*.03);border-radius:calc(var(--w)*.19 - 3px);background:#050608}
+.iphone img{display:block;width:100%;height:auto;aspect-ratio:780/1688;object-fit:cover;border-radius:calc(var(--w)*.16 - 3px)}
+.iphone .di{position:absolute;left:50%;top:calc(3px + var(--w)*.058);width:calc(var(--w)*.28);aspect-ratio:126/37;transform:translateX(-50%);border-radius:999px;background:#000}
+.note{position:absolute;right:26px;bottom:14px;font-weight:700;font-size:15px;color:rgba(255,255,255,.85);text-shadow:0 1px 3px rgba(0,0,0,.5)}
+</style>
+</head>
+<body>
+  <div class="logo"><svg width="198.6" height="23" viewBox="0 -2 552.7 64" role="img" aria-label="PADDLE ON" style="display: block; flex-shrink: 0"><g transform="translate(-2.96 -9.26) scale(0.74)"><path d="M8 42 q 8 -7 16 0 q 8 7 16 0 q 8 -7 16 0 L 80 18" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 16 L82 16 L82 32" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.0 62.0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.0 82.0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0 q 9.5 -7.0 19.0 0 q 9.5 7.0 19.0 0" fill="none" stroke="#5ED3E6" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(100.4 12)"><path d="M4.74 40V0H22.06Q27.43 0 31.31 1.74Q35.2 3.49 37.31 6.74Q39.43 10 39.43 14.51Q39.43 18.97 37.31 22.23Q35.2 25.49 31.31 27.23Q27.43 28.97 22.06 28.97H9.89L14 24.8V40ZM14 25.83 9.89 21.43H21.54Q25.83 21.43 27.94 19.6Q30.06 17.77 30.06 14.51Q30.06 11.2 27.94 9.37Q25.83 7.54 21.54 7.54H9.89L14 3.14ZM52.17 40 70 0H79.14L97.03 40H87.31L72.69 4.69H76.34L61.66 40ZM61.09 31.43 63.54 24.4H84.11L86.63 31.43ZM112.06 40V0H130.23Q136.74 0 141.71 2.49Q146.69 4.97 149.49 9.43Q152.29 13.89 152.29 20Q152.29 26.06 149.49 30.54Q146.69 35.03 141.71 37.51Q136.74 40 130.23 40ZM121.31 32.4H129.77Q133.77 32.4 136.71 30.89Q139.66 29.37 141.29 26.57Q142.91 23.77 142.91 20Q142.91 16.17 141.29 13.4Q139.66 10.63 136.71 9.11Q133.77 7.6 129.77 7.6H121.31ZM170.11 40V0H188.29Q194.8 0 199.77 2.49Q204.74 4.97 207.54 9.43Q210.34 13.89 210.34 20Q210.34 26.06 207.54 30.54Q204.74 35.03 199.77 37.51Q194.8 40 188.29 40ZM179.37 32.4H187.83Q191.83 32.4 194.77 30.89Q197.71 29.37 199.34 26.57Q200.97 23.77 200.97 20Q200.97 16.17 199.34 13.4Q197.71 10.63 194.77 9.11Q191.83 7.6 187.83 7.6H179.37ZM228.17 40V0H237.43V32.46H257.49V40ZM273.54 40V0H303.77V7.43H282.74V32.57H304.51V40ZM282.06 23.31V16.11H301.31V23.31Z" fill="#EEF3F8"/><path d="M369.2 40.69Q364.46 40.69 360.43 39.14Q356.4 37.6 353.46 34.8Q350.51 32 348.89 28.23Q347.26 24.46 347.26 20Q347.26 15.54 348.89 11.77Q350.51 8 353.49 5.2Q356.46 2.4 360.46 0.86Q364.46 -0.69 369.14 -0.69Q373.89 -0.69 377.86 0.86Q381.83 2.4 384.77 5.2Q387.71 8 389.37 11.74Q391.03 15.49 391.03 20Q391.03 24.46 389.37 28.26Q387.71 32.06 384.77 34.83Q381.83 37.6 377.86 39.14Q373.89 40.69 369.2 40.69ZM369.14 32.8Q371.83 32.8 374.09 31.89Q376.34 30.97 378.06 29.26Q379.77 27.54 380.71 25.2Q381.66 22.86 381.66 20Q381.66 17.14 380.71 14.8Q379.77 12.46 378.09 10.74Q376.4 9.03 374.11 8.11Q371.83 7.2 369.14 7.2Q366.46 7.2 364.2 8.11Q361.94 9.03 360.23 10.74Q358.51 12.46 357.57 14.8Q356.63 17.14 356.63 20Q356.63 22.8 357.57 25.17Q358.51 27.54 360.2 29.26Q361.89 30.97 364.17 31.89Q366.46 32.8 369.14 32.8ZM408.86 40V0H416.51L440.11 28.8H436.4V0H445.54V40H437.94L414.29 11.2H418V40Z" fill="#5ED3E6"/></g></svg></div>
+  <h1>「できた」が、<br>増えていく。</h1>
+  <div class="tagline">Paddle on. Ride better.</div>
+  <div class="cta">事前登録受付中（無料）</div>
+  <div class="iphone"><div class="bz"><img src="../public/img/app-home.jpg" alt=""></div><span class="di"></span></div>
+  <div class="note">※画面は試作中のデザインです</div>
+</body>
+</html>

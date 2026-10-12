@@ -17,6 +17,7 @@ paddleon-lp/
 │  ├─ waitlist.sql         登録を保存する表と、登録用の関数 join_waitlist
 │  ├─ send_thanks_trigger.sql  登録時にお礼メールの関数を呼ぶトリガー
 │  └─ functions/send-thanks/   お礼メールを送る Edge Function（preview.html でメールの見た目を確認）
+├─ og/                     OGP 画像の元（og.html）と、public/og.jpg を書き出すスクリプト（build.sh）
 ├─ docs/                   手順書・仕様書
 ├─ scripts/                本番に出す前のチェック（npm run check）
 ├─ .github/workflows/      チェック・プレビュー・本番デプロイ・リリース・Supabase の死活監視（GitHub Actions）

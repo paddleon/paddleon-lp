@@ -27,7 +27,8 @@ RULES = [
 ]
 
 errors: list[str] = []
-for path in sorted(PUBLIC.rglob("*")):
+targets = sorted(PUBLIC.rglob("*")) + sorted((ROOT / "og").rglob("*"))  # og/ は OGP 画像の元になるページ
+for path in targets:
     if path.suffix not in {".html", ".svg", ".css", ".js", ".txt", ".xml", ".md"}:
         continue
     for no, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
