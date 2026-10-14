@@ -48,7 +48,7 @@ jobs:
           verify() {
             local fail=0 code p f
             # 今回のファイルと同じ内容が配信されているか
-            for f in index.html:/ privacy.html:/privacy llms.txt:/llms.txt index.md:/index.md auth.md:/auth.md .well-known/api-catalog:/.well-known/api-catalog; do
+            for f in index.html:/ privacy.html:/privacy index.md:/index.md auth.md:/auth.md .well-known/api-catalog:/.well-known/api-catalog; do
               want=$(sha256sum "public/${f%%:*}" | cut -d' ' -f1)
               got=$(curl -fsS "https://paddleon.app${f##*:}" | sha256sum | cut -d' ' -f1 || true)
               [ "$got" = "$want" ] && echo "${f##*:} 内容一致" || { echo "${f##*:} 内容が今回のファイルと違います"; fail=1; }

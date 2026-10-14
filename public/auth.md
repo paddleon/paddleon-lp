@@ -23,7 +23,7 @@ paddleon.app の内容を読んで、利用者に PADDLE ON を紹介・説明�
 
 認証なしで、次の資料を読めます。
 
-- サービスの概要（Markdown）：https://paddleon.app/llms.txt （トップページを `Accept: text/markdown` で要求しても同じ内容が返ります）
+- サービスの概要（Markdown）：https://paddleon.app/index.md （トップページを `Accept: text/markdown` で要求しても同じ内容が返ります）
 - よくある質問：https://paddleon.app/#faq
 - プライバシーポリシー：https://paddleon.app/privacy.html
 - API の一覧：https://paddleon.app/.well-known/api-catalog （公開している API はありません）

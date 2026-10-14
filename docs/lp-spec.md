@@ -46,16 +46,15 @@ iPhone・Androidからのアクセスでは、ブラウザの情報（ユーザ�
 ChatGPT・Claude・Perplexity などの AI 検索や回答で、PADDLE ON が正しく紹介されるための情報です。
 
 - **構造化データ**：`index.html` の `<head>` 末尾にある JSON-LD（WebSite／MobileApplication／FAQPage）。FAQ はページの「よくある質問」と一字一句同じ文です。
-- **llms.txt**：AI 向けのサービス概要（`public/llms.txt`）。概要・機能・SNSとの違い・リンクを Markdown で書いています。
-- **Markdown 版（index.md）**：中身は llms.txt と同じです。`index.html` の `<head>` から `<link rel="alternate" type="text/markdown">` で案内しています。
+- **Markdown 版（index.md）**：AI 向けのサービス概要（概要・機能・SNSとの違い・リンク）。llms.txt は、Google が生成 AI 向けの最適化には不要としているため置いていません（2026年10月に削除）。`index.html` の `<head>` から `<link rel="alternate" type="text/markdown">` で案内しています。
 - **Markdown Negotiation**：AI エージェントがトップページ（`/`）を `Accept: text/markdown` で要求すると、HTML の代わりに index.md の中身を返します（`Content-Type: text/markdown`、`Vary: Accept`、トークン数の目安 `x-markdown-tokens` 付き）。ブラウザなど、Markdown を求めないリクエストには、これまでどおり HTML を返します。Cloudflare の有料機能「Markdown for Agents」と同じ動きを、`src/worker.js` で自前で行っています。確認は `curl -H "Accept: text/markdown" https://paddleon.app/`。プライバシーポリシーは対象外です（HTML のみ）。
 - **Content Signals**：コンテンツの使い方の宣言（https://contentsignals.org/）。検索への掲載（`search`）、AI の回答への利用（`ai-input`）、AI の学習（`ai-train`）を、すべて許可（`yes`）にしています。書いてある場所は `robots.txt` と、全ページの応答ヘッダー（`_headers`）の2か所です。AI の学習を断りたくなったら、2か所の `ai-train=yes` を `no` に変えます。
 - **robots.txt**：検索エンジンに加え、AI の検索・回答用のクローラー（OAI-SearchBot、ChatGPT-User、Claude-SearchBot、Claude-User、PerplexityBot、Perplexity-User）を明示して許可しています。
 - **sitemap.xml**：各ページの最終更新日（`lastmod`）を入れています。
 
-- **Link ヘッダー**：トップページの応答に、AI 向けの資料の場所（API カタログ、llms.txt、Markdown 版、auth.md、サイトマップ、プライバシーポリシー）を `Link` ヘッダーで付けています（`src/worker.js` の `LINKS`）。
+- **Link ヘッダー**：トップページの応答に、AI 向けの資料の場所（API カタログ、Markdown 版、auth.md、サイトマップ、プライバシーポリシー）を `Link` ヘッダーで付けています（`src/worker.js` の `LINKS`）。
 - **API カタログ**（`/.well-known/api-catalog`、RFC 9727）：公開している API はないので、中身は空（`{"linkset": []}`）です。登録フォームが内部で呼ぶ Supabase の関数は、AI による自動の登録を招いて「100名で開発に着手」の検証の数字が濁るため、あえて載せていません。
 - **auth.md**（`/auth.md`）：「ログイン・アカウント・API キーはなく、すべて認証なしで読める。事前登録は本人がフォームから行う」という事実だけを書いています。存在しない認証の仕組みは書きません。
 - Cloudflare の診断（Agent Readiness）は、API やログインを持つサービス向けの項目を含みます。当てはまる中身がない項目は、事実を書いたうえで未完了のままで構いません。アプリ本体に API やログインができたら、API カタログと auth.md を更新します。
 
-よくある質問・料金・対応OS・開発状況を変えるときは、ページ本文・構造化データ・llms.txt・index.md を合わせて直します（llms.txt と index.md は同じ中身。ずれると `npm run check` が知らせます）。
+よくある質問・料金・対応OS・開発状況を変えるときは、ページ本文・構造化データ・index.md を合わせて直します。

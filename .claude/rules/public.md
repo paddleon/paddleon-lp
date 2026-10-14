@@ -16,7 +16,7 @@ paths:
 - 動きは `prefers-reduced-motion` を尊重し、JS が無効でも内容が読めるようにしておく（既存の作りに合わせる）。
 - 他社のロゴ（Apple のりんごマークなど）と、配信前のストア名（App Store / Google Play）を使わない。対応機種は「iPhone版」と文字で書く（CLAUDE.md「商標とロゴ」）。画像を差し替えたら、ロゴが入っていないか目で確認する。
 - 外部から受け取ったLP一式（zip やフォルダ）は、そのまま上書きしない。`diff` で今回の変更点だけを取り込む（古い状態から作られていて、直した箇所が戻ることがある）。
-- LLMO（AI検索向け）: サービスの説明は「ページ本文」「`index.html` の構造化データ（JSON-LD の MobileApplication と FAQPage）」「`llms.txt`」「`index.md`」にある。よくある質問・料金・対応OS・開発状況・X のアカウントなどを変えたら全部合わせる。`index.md` は `llms.txt` のコピー（`cp public/llms.txt public/index.md`。ずれるとチェックで落ちる）。構造化データの FAQ はページに表示している文と一字一句同じにする（違うと検索エンジンの規約違反になる）。ページを更新したら `sitemap.xml` の `lastmod` も更新する。
-- AI 向けの資料（`llms.txt`・`index.md`・`auth.md`・`.well-known/api-catalog`・構造化データ）には事実だけを書く。診断ツールの項目を通すために、存在しない API・認証・機能を宣言しない。事前登録の関数（`join_waitlist`）を API として公開・案内しない（自動の登録で検証の数字が濁るため。変えるならユーザーに確認する）。
+- LLMO（AI検索向け）: サービスの説明は「ページ本文」「`index.html` の構造化データ（JSON-LD の MobileApplication と FAQPage）」「`index.md`」にある。よくある質問・料金・対応OS・開発状況・X のアカウントなどを変えたら全部合わせる。構造化データの FAQ はページに表示している文と一字一句同じにする（違うと検索エンジンの規約違反になる）。ページを更新したら `sitemap.xml` の `lastmod` も更新する。
+- AI 向けの資料（`index.md`・`auth.md`・`.well-known/api-catalog`・構造化データ）には事実だけを書く。診断ツールの項目を通すために、存在しない API・認証・機能を宣言しない。事前登録の関数（`join_waitlist`）を API として公開・案内しない（自動の登録で検証の数字が濁るため。変えるならユーザーに確認する）。
 - `_headers` は Cloudflare の配信設定（`.txt`・`.md` の文字コードと、全応答の `Content-Signal`）。ファイル自体は公開されない。Content-Signal（検索・AIの回答・AIの学習の許可）は `robots.txt` にも同じ値を書いてあるので、変えるときは2か所とも変える。許可の範囲を変えるのは運営の方針なので、ユーザーに確認する。
 - 仕様の詳細は `docs/lp-spec.md`。仕様を変えたらそちらも更新する。

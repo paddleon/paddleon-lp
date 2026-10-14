@@ -19,8 +19,7 @@ export default {
 // トップページの応答に付ける Link ヘッダー（RFC 8288）。AI エージェントに、機械向けの資料の場所を知らせる
 const LINKS = [
   '</.well-known/api-catalog>; rel="api-catalog"',
-  '</llms.txt>; rel="describedby"; type="text/plain"',
-  '</index.md>; rel="alternate"; type="text/markdown"',
+  '</index.md>; rel="alternate describedby"; type="text/markdown"',
   '</auth.md>; rel="service-doc"; type="text/markdown"',
   '</sitemap.xml>; rel="sitemap"; type="application/xml"',
   '</privacy.html>; rel="privacy-policy"',
